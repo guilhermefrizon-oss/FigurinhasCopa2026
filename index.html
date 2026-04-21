@@ -713,7 +713,8 @@ const GROUPS = {
   K: [{name:'Portugal',code:'POR',flag:'🇵🇹'},{name:'Congo',code:'COD',flag:'🇨🇩'},{name:'Uzbequistão',code:'UZB',flag:'🇺🇿'},{name:'Colômbia',code:'COL',flag:'🇨🇴'}],
   L: [{name:'Inglaterra',code:'ENG',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},{name:'Croácia',code:'CRO',flag:'🇭🇷'},{name:'Gana',code:'GHA',flag:'🇬🇭'},{name:'Panamá',code:'PAN',flag:'🇵🇦'}],
 };
-const TEAM_STICKERS = ['00','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
+const TEAM_STICKERS = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
+const PAG_STICKERS = ['00','1','2','3','4','5','6','7','8'];
 const FWC_STICKERS = ['9','10','11','12','13','14','15','16','17','18','19'];
 const CC_STICKERS = ['CC1','CC2','CC3','CC4','CC5','CC6','CC7','CC8','CC9','CC10','CC11','CC12','CC13','CC14'];
 
@@ -721,8 +722,16 @@ let state = {};
 let currentUser = null;
 let saveTimeout = null;
 let unsubSnapshot = null;
+let pendingSave = false;
 
 // ─── AUTH HELPERS ───
+function showToast(msg, dur=3000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
 function showError(id, msg) { document.getElementById(id).textContent = msg; }
 
 window.switchAuthTab = (tab) => {
@@ -776,13 +785,16 @@ function friendlyError(code) {
 async function loadUserData(uid) {
   const ref = doc(db, 'albuns', uid);
   unsubSnapshot = onSnapshot(ref, snap => {
+    if(pendingSave) return; // don't overwrite local changes mid-save
     if(snap.exists()) {
-      const remote = snap.data().stickers || {};
-      state = remote;
+      state = snap.data().stickers || {};
     } else {
       state = {};
     }
     refreshAllUI();
+  }, err => {
+    console.error('Firestore read error:', err);
+    showToast('⚠️ Erro ao carregar dados: verifique as regras do Firestore');
   });
 }
 
@@ -793,13 +805,18 @@ function scheduleSave() {
 
 async function saveUserData() {
   if(!currentUser) return;
+  pendingSave = true;
   const ref = doc(db, 'albuns', currentUser.uid);
   try {
     await setDoc(ref, { stickers: state, updatedAt: new Date().toISOString() }, { merge: true });
     const ind = document.getElementById('syncInd');
     ind.classList.add('show');
     setTimeout(() => ind.classList.remove('show'), 1500);
-  } catch(e) { console.error('Save error:', e); }
+  } catch(e) {
+    console.error('Save error:', e);
+    showToast('⚠️ Erro ao salvar! Verifique as regras do Firestore.');
+  }
+  pendingSave = false;
 }
 
 // ─── BUILD UI ───
@@ -857,7 +874,7 @@ function buildGroupPage(g) {
           <span class="team-flag">${team.flag}</span>
           <div><div class="team-name">${team.name}</div><div class="team-code">${team.code}</div></div>
         </div>
-        <div class="team-prog" id="tp_${team.code}">0/21</div>
+        <div class="team-prog" id="tp_${team.code}">0/20</div>
       </div>
       <div class="sticker-grid" id="sg_${team.code}"></div>
     `;
@@ -897,6 +914,25 @@ function buildEspeciaisPage() {
   const page = document.createElement('div');
   page.className = 'page';
   page.id = 'page_especiais';
+
+  // Página Inicial
+  const pag = document.createElement('div');
+  pag.className = 'special-section';
+  pag.innerHTML = '<div class="special-title">PÁGINA INICIAL</div><div class="special-grid" id="pag_grid"></div>';
+  PAG_STICKERS.forEach(n => {
+    const key = 'PAG_' + n;
+    const s = document.createElement('div');
+    s.className = 'stk-sp';
+    s.textContent = n;
+    s.dataset.key = key;
+    s.onclick = () => {
+      state[key] = ((state[key]||0) + 1) % 3;
+      updateStkSpEl(s, state[key]);
+      updateGlobal(); updateResumo(); scheduleSave();
+    };
+    pag.querySelector('#pag_grid').appendChild(s);
+  });
+  page.appendChild(pag);
 
   // FWC
   const fwc = document.createElement('div');
@@ -978,7 +1014,7 @@ function updateTeamProg(code) {
   const el = document.getElementById('tp_'+code);
   if(!el) return;
   const count = TEAM_STICKERS.filter(n => (state[code+'_'+n]||0) >= 1).length;
-  el.textContent = count + '/21';
+  el.textContent = count + '/20';
 }
 
 function updateGroupCount(g) {
@@ -986,7 +1022,7 @@ function updateGroupCount(g) {
   if(!el) return;
   let c = 0;
   GROUPS[g].forEach(t => TEAM_STICKERS.forEach(n => { if((state[t.code+'_'+n]||0)>=1) c++; }));
-  el.textContent = c + '/' + (GROUPS[g].length * 21);
+  el.textContent = c + '/' + (GROUPS[g].length * 20);
 }
 
 function updateGlobal() {
@@ -995,6 +1031,7 @@ function updateGlobal() {
     TEAM_STICKERS.forEach(n => { if((state[t.code+'_'+n]||0)>=1) have++; total++; });
   });
   FWC_STICKERS.forEach(n => { if((state['FWC_'+n]||0)>=1) have++; total++; });
+  PAG_STICKERS.forEach(n => { if((state['PAG_'+n]||0)>=1) have++; total++; });
   CC_STICKERS.forEach(n => { if((state['CC_'+n]||0)>=1) have++; total++; });
   const pct = total > 0 ? Math.round(have/total*100) : 0;
   document.getElementById('globalBar').style.width = pct + '%';
@@ -1024,6 +1061,7 @@ function updateResumo() {
     }
   });
   FWC_STICKERS.forEach(n => { const v=state['FWC_'+n]||0; if(v>=1){have++;} if(v===2) rep++; total++; });
+  PAG_STICKERS.forEach(n => { const v=state['PAG_'+n]||0; if(v>=1){have++;} if(v===2) rep++; total++; });
   CC_STICKERS.forEach(n => { const v=state['CC_'+n]||0; if(v>=1){have++;} if(v===2) rep++; total++; });
 
   const miss = total - have;
