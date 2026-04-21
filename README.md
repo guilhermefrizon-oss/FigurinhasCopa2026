@@ -1,0 +1,1 @@
+# FigurinhasCopa2026
