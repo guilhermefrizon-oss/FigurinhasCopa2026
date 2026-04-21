@@ -1284,18 +1284,18 @@ function updateEstat() {
       const div = document.createElement('div');
       div.className = 'estat-card';
       div.style.marginBottom = '8px';
-      div.innerHTML = \`
+      div.innerHTML = `
         <div class="estat-card-row" style="margin-bottom:7px">
           <div class="estat-card-body">
-            <div class="estat-card-title">\${s.nome}</div>
-            <div class="estat-card-sub">\${h}/\${s.total} · faltam \${m}</div>
+            <div class="estat-card-title">${s.nome}</div>
+            <div class="estat-card-sub">${h}/${s.total} · faltam ${m}</div>
           </div>
-          <div class="estat-card-value gold">\${p}%</div>
+          <div class="estat-card-value gold">${p}%</div>
         </div>
         <div class="mini-bar-bg" style="height:5px">
-          <div class="mini-bar-fill" style="width:\${p}%"></div>
+          <div class="mini-bar-fill" style="width:${p}%"></div>
         </div>
-      \`;
+      `;
       sec.appendChild(div);
     });
   }
