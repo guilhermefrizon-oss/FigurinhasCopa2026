@@ -450,8 +450,8 @@ input:focus { border-color: var(--blue); }
   line-height: 1.1;
 }
 .stk-sp:active { transform: scale(0.85); }
-.stk-sp.have { background: var(--gold); border-color: var(--gold); color: #000; }
-.stk-sp.repeat { background: var(--red); border-color: var(--red); color: #fff; }
+.stk-sp.have { background: var(--green); border-color: var(--green); color: #fff; }
+.stk-sp.repeat { background: var(--gold); border-color: var(--gold); color: #000; }
 
 /* ─── LEGEND ─── */
 .legend {
@@ -529,6 +529,70 @@ input:focus { border-color: var(--blue); }
   transition: opacity 0.3s;
 }
 .sync-indicator.show { opacity: 1; }
+
+/* ─── ESTATÍSTICAS ─── */
+.estat-section { margin-bottom: 14px; }
+.estat-section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  color: var(--muted); text-transform: uppercase;
+  margin-bottom: 8px; padding: 0 2px;
+}
+.estat-hero {
+  background: linear-gradient(135deg, rgba(0,61,165,0.35) 0%, rgba(212,160,23,0.15) 100%);
+  border: 1px solid rgba(212,160,23,0.25); border-radius: 14px;
+  padding: 16px; margin-bottom: 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.estat-hero-label {
+  font-size: 10px; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 1.5px; font-weight: 600; margin-bottom: 4px;
+}
+.estat-hero-valor {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 36px; font-weight: 800; color: var(--gold-light); line-height: 1;
+}
+.estat-hero-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.estat-hero-icon { font-size: 36px; line-height: 1; }
+.estat-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;
+}
+.estat-tile {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 13px 12px; text-align: center;
+}
+.estat-tile-n {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 26px; font-weight: 800; line-height: 1; margin-bottom: 3px;
+}
+.estat-tile-n.green { color: #4ade80; }
+.estat-tile-n.gold { color: var(--gold-light); }
+.estat-tile-n.red { color: #f87171; }
+.estat-tile-n.blue { color: #60a5fa; }
+.estat-tile-lbl {
+  font-size: 10px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;
+}
+.estat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px; margin-bottom: 8px;
+}
+.estat-card-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.estat-card-icon { font-size: 18px; line-height: 1; }
+.estat-card-body { flex: 1; }
+.estat-card-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.estat-card-sub { font-size: 11px; color: var(--muted); }
+.estat-card-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 800; text-align: right;
+}
+.estat-card-value.green { color: #4ade80; }
+.estat-card-value.gold { color: var(--gold-light); }
+.estat-card-value.red { color: #f87171; }
+.estat-divider { height: 1px; background: var(--border); margin: 10px 0; }
+.estat-aviso { font-size: 10px; color: var(--muted); text-align: center; padding: 4px 0 8px; line-height: 1.5; }
 
 /* ─── TOAST ─── */
 .toast {
@@ -830,6 +894,10 @@ function buildApp() {
   addTab(tabsBar, 'resumo', 'Resumo', true);
   pages.appendChild(buildResumoPage());
 
+  // Estatísticas
+  addTab(tabsBar, 'estat', 'Estatísticas', false);
+  pages.appendChild(buildEstatPage());
+
   // Groups
   Object.keys(GROUPS).forEach(g => {
     addTab(tabsBar, 'g_'+g, 'Grupo '+g, false);
@@ -891,6 +959,7 @@ function buildGroupPage(g) {
         updateGroupCount(g);
         updateGlobal();
         updateResumo();
+        updateEstat();
         scheduleSave();
       };
       row.querySelector('#sg_'+team.code).appendChild(s);
@@ -928,7 +997,7 @@ function buildEspeciaisPage() {
     s.onclick = () => {
       state[key] = ((state[key]||0) + 1) % 3;
       updateStkSpEl(s, state[key]);
-      updateGlobal(); updateResumo(); scheduleSave();
+      updateGlobal(); updateResumo(); updateEstat(); scheduleSave();
     };
     pag.querySelector('#pag_grid').appendChild(s);
   });
@@ -947,7 +1016,7 @@ function buildEspeciaisPage() {
     s.onclick = () => {
       state[key] = ((state[key]||0) + 1) % 3;
       updateStkSpEl(s, state[key]);
-      updateGlobal(); updateResumo(); scheduleSave();
+      updateGlobal(); updateResumo(); updateEstat(); scheduleSave();
     };
     fwc.querySelector('#fwc_grid').appendChild(s);
   });
@@ -966,7 +1035,7 @@ function buildEspeciaisPage() {
     s.onclick = () => {
       state[key] = ((state[key]||0) + 1) % 3;
       updateStkSpEl(s, state[key]);
-      updateGlobal(); updateResumo(); scheduleSave();
+      updateGlobal(); updateResumo(); updateEstat(); scheduleSave();
     };
     cc.querySelector('#cc_grid').appendChild(s);
   });
@@ -975,11 +1044,84 @@ function buildEspeciaisPage() {
   page.insertAdjacentHTML('beforeend', `
     <div class="legend">
       <div class="legend-item"><div class="leg-dot" style="background:var(--surface);border:1.5px solid var(--border2)"></div>Falta</div>
-      <div class="legend-item"><div class="leg-dot" style="background:var(--gold)"></div>Tenho</div>
-      <div class="legend-item"><div class="leg-dot" style="background:var(--red)"></div>Repetida</div>
+      <div class="legend-item"><div class="leg-dot" style="background:var(--green)"></div>Tenho</div>
+      <div class="legend-item"><div class="leg-dot" style="background:var(--gold)"></div>Repetida</div>
     </div>
     <div class="tap-tip">Toque 1× = tenho &nbsp;·&nbsp; 2× = repetida &nbsp;·&nbsp; 3× = falta</div>
   `);
+  return page;
+}
+
+function buildEstatPage() {
+  const page = document.createElement('div');
+  page.className = 'page';
+  page.id = 'page_estat';
+  page.style.padding = '12px';
+  page.innerHTML = `
+    <div class="estat-hero">
+      <div class="estat-hero-left">
+        <div class="estat-hero-label">Para completar o álbum</div>
+        <div class="estat-hero-valor" id="e_falta_valor">R$ 0</div>
+        <div class="estat-hero-sub" id="e_falta_sub">— figurinhas faltando</div>
+      </div>
+      <div class="estat-hero-icon">🏆</div>
+    </div>
+
+    <div class="estat-grid">
+      <div class="estat-tile">
+        <div class="estat-tile-n green" id="e_have">0</div>
+        <div class="estat-tile-lbl">Tenho</div>
+      </div>
+      <div class="estat-tile">
+        <div class="estat-tile-n red" id="e_miss">0</div>
+        <div class="estat-tile-lbl">Faltam</div>
+      </div>
+      <div class="estat-tile">
+        <div class="estat-tile-n gold" id="e_rep">0</div>
+        <div class="estat-tile-lbl">Repetidas</div>
+      </div>
+      <div class="estat-tile">
+        <div class="estat-tile-n blue" id="e_pct">0%</div>
+        <div class="estat-tile-lbl">Completo</div>
+      </div>
+    </div>
+
+    <div class="estat-section-title">💰 Investimento</div>
+
+    <div class="estat-card">
+      <div class="estat-card-row">
+        <div class="estat-card-icon">✅</div>
+        <div class="estat-card-body">
+          <div class="estat-card-title">Já investido</div>
+          <div class="estat-card-sub" id="e_inv_sub">0 figurinhas × R$ 1,00</div>
+        </div>
+        <div class="estat-card-value green" id="e_inv_valor">R$ 0</div>
+      </div>
+      <div class="estat-divider"></div>
+      <div class="estat-card-row">
+        <div class="estat-card-icon">🎯</div>
+        <div class="estat-card-body">
+          <div class="estat-card-title">Para completar</div>
+          <div class="estat-card-sub" id="e_comp_sub">0 figurinhas restantes</div>
+        </div>
+        <div class="estat-card-value red" id="e_comp_valor">R$ 0</div>
+      </div>
+      <div class="estat-divider"></div>
+      <div class="estat-card-row">
+        <div class="estat-card-icon">📦</div>
+        <div class="estat-card-body">
+          <div class="estat-card-title">Pacotes estimados</div>
+          <div class="estat-card-sub">7 fig/pacote · R$ 7,00 cada</div>
+        </div>
+        <div class="estat-card-value gold" id="e_pacotes">0 pcts</div>
+      </div>
+    </div>
+
+    <div class="estat-section-title">📊 Por seção</div>
+    <div id="e_secoes"></div>
+
+    <div class="estat-aviso">* Coca-Cola excluída do cálculo de custo.<br>Cada figurinha = R$ 1,00 (pacote 7 fig · R$ 7,00).</div>
+  `;
   return page;
 }
 
@@ -1056,7 +1198,7 @@ function updateResumo() {
     if(tl) {
       const row = document.createElement('div');
       row.className = 'team-list-row';
-      row.innerHTML = `<span style="font-size:16px">${t.flag}</span><span style="flex:1;font-size:11px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">${t.code}</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${Math.round(th/21*100)}%"></div></div><span style="font-size:12px;color:var(--gold-light);font-weight:600;font-family:'Barlow Condensed',sans-serif;min-width:30px;text-align:right">${th}/21</span>`;
+      row.innerHTML = `<span style="font-size:16px">${t.flag}</span><span style="flex:1;font-size:11px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">${t.code}</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${Math.round(th/20*100)}%"></div></div><span style="font-size:12px;color:var(--gold-light);font-weight:600;font-family:'Barlow Condensed',sans-serif;min-width:30px;text-align:right">${th}/20</span>`;
       tl.appendChild(row);
     }
   });
@@ -1076,6 +1218,89 @@ function updateResumo() {
   if(rp) rp.textContent = pct + '%';
 }
 
+function updateEstat() {
+  // Totals (excluding CC from cost)
+  const teams = Object.values(GROUPS).flat();
+  let have = 0, rep = 0, miss = 0;
+  let haveCC = 0, repCC = 0;
+
+  teams.forEach(t => {
+    TEAM_STICKERS.forEach(n => {
+      const v = state[t.code+'_'+n]||0;
+      if(v>=1) have++; if(v===2) rep++;
+    });
+  });
+  FWC_STICKERS.forEach(n => { const v=state['FWC_'+n]||0; if(v>=1) have++; if(v===2) rep++; });
+  PAG_STICKERS.forEach(n => { const v=state['PAG_'+n]||0; if(v>=1) have++; if(v===2) rep++; });
+  CC_STICKERS.forEach(n => { const v=state['CC_'+n]||0; if(v>=1) haveCC++; if(v===2) repCC++; });
+
+  const totalSemCC = (teams.length * 20) + FWC_STICKERS.length + PAG_STICKERS.length;
+  const totalComCC = totalSemCC + CC_STICKERS.length;
+  const haveAll = have + haveCC;
+  miss = totalSemCC - have;
+  const pct = totalComCC > 0 ? Math.round(haveAll/totalComCC*100) : 0;
+
+  const pacotesParaCompletar = Math.ceil(miss / 7);
+  const custoFalta = miss; // R$1 por figurinha
+  const custoJa = have;   // R$1 por figurinha (sem CC)
+
+  const fv = document.getElementById('e_falta_valor');
+  const fs = document.getElementById('e_falta_sub');
+  const eh = document.getElementById('e_have');
+  const em = document.getElementById('e_miss');
+  const er = document.getElementById('e_rep');
+  const ep = document.getElementById('e_pct');
+  const iv = document.getElementById('e_inv_valor');
+  const is_ = document.getElementById('e_inv_sub');
+  const cv = document.getElementById('e_comp_valor');
+  const cs = document.getElementById('e_comp_sub');
+  const pv = document.getElementById('e_pacotes');
+  const sec = document.getElementById('e_secoes');
+
+  if(fv) fv.textContent = 'R$ ' + custoFalta.toLocaleString('pt-BR');
+  if(fs) fs.textContent = miss + ' figurinhas faltando';
+  if(eh) eh.textContent = haveAll;
+  if(em) em.textContent = miss;
+  if(er) er.textContent = rep + repCC;
+  if(ep) ep.textContent = pct + '%';
+  if(iv) iv.textContent = 'R$ ' + custoJa.toLocaleString('pt-BR');
+  if(is_) is_.textContent = have + ' figurinhas × R$ 1,00';
+  if(cv) cv.textContent = 'R$ ' + custoFalta.toLocaleString('pt-BR');
+  if(cs) cs.textContent = miss + ' figurinhas restantes (sem Coca-Cola)';
+  if(pv) pv.textContent = pacotesParaCompletar + ' pcts';
+
+  if(sec) {
+    const SECOES = [
+      { nome: 'Grupos (A-L)', getHave: () => { let h=0; teams.forEach(t => TEAM_STICKERS.forEach(n => { if((state[t.code+'_'+n]||0)>=1) h++; })); return h; }, total: teams.length*20 },
+      { nome: 'Pág. Inicial', getHave: () => PAG_STICKERS.filter(n=>(state['PAG_'+n]||0)>=1).length, total: PAG_STICKERS.length },
+      { nome: 'FWC History', getHave: () => FWC_STICKERS.filter(n=>(state['FWC_'+n]||0)>=1).length, total: FWC_STICKERS.length },
+      { nome: 'Coca-Cola ☕', getHave: () => haveCC, total: CC_STICKERS.length },
+    ];
+    sec.innerHTML = '';
+    SECOES.forEach(s => {
+      const h = s.getHave();
+      const m = s.total - h;
+      const p = Math.round(h/s.total*100);
+      const div = document.createElement('div');
+      div.className = 'estat-card';
+      div.style.marginBottom = '8px';
+      div.innerHTML = \`
+        <div class="estat-card-row" style="margin-bottom:7px">
+          <div class="estat-card-body">
+            <div class="estat-card-title">\${s.nome}</div>
+            <div class="estat-card-sub">\${h}/\${s.total} · faltam \${m}</div>
+          </div>
+          <div class="estat-card-value gold">\${p}%</div>
+        </div>
+        <div class="mini-bar-bg" style="height:5px">
+          <div class="mini-bar-fill" style="width:\${p}%"></div>
+        </div>
+      \`;
+      sec.appendChild(div);
+    });
+  }
+}
+
 function refreshAllUI() {
   // Apply state to all sticker elements
   document.querySelectorAll('.stk[data-key]').forEach(el => {
@@ -1088,6 +1313,7 @@ function refreshAllUI() {
   Object.keys(GROUPS).forEach(g => updateGroupCount(g));
   updateGlobal();
   updateResumo();
+  updateEstat();
 }
 
 // ─── AUTH STATE ───
