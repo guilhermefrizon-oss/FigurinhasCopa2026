@@ -6,7 +6,6 @@
 <title>Figurinhas Copa 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -25,6 +24,7 @@
   --text: #EEF2FF;
   --muted: #6B7FA8;
   --radius: 12px;
+  --nav-h: 64px;
 }
 
 html, body {
@@ -38,643 +38,318 @@ html, body {
 /* ─── AUTH SCREEN ─── */
 #authScreen {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
   padding: 24px;
   background: var(--dark);
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
-
 #authScreen::before {
-  content: '';
-  position: absolute;
+  content: ''; position: absolute;
   top: -120px; left: -120px;
   width: 400px; height: 400px;
   background: radial-gradient(circle, rgba(0,61,165,0.25) 0%, transparent 70%);
   pointer-events: none;
 }
-
 #authScreen::after {
-  content: '';
-  position: absolute;
+  content: ''; position: absolute;
   bottom: -80px; right: -80px;
   width: 300px; height: 300px;
   background: radial-gradient(circle, rgba(200,16,46,0.2) 0%, transparent 70%);
   pointer-events: none;
 }
-
-.auth-logo {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: 4px;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-
-.auth-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 38px;
-  line-height: 1;
-  text-align: center;
-  letter-spacing: 1px;
-  margin-bottom: 4px;
-  background: linear-gradient(135deg, #fff 30%, var(--gold-light));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.auth-sub {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 32px;
-  text-align: center;
-}
-
-.auth-card {
-  width: 100%;
-  max-width: 380px;
-  background: var(--card);
-  border: 1px solid var(--border2);
-  border-radius: 18px;
-  padding: 24px;
-  position: relative;
-  z-index: 1;
-}
-
-.auth-tabs {
-  display: flex;
-  background: var(--surface);
-  border-radius: 10px;
-  padding: 3px;
-  margin-bottom: 20px;
-}
-
-.auth-tab {
-  flex: 1;
-  padding: 8px;
-  text-align: center;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 1px;
-  color: var(--muted);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
+.auth-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+.auth-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 38px; line-height: 1; text-align: center; letter-spacing: 1px; margin-bottom: 4px; background: linear-gradient(135deg, #fff 30%, var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.auth-sub { font-size: 13px; color: var(--muted); margin-bottom: 32px; text-align: center; }
+.auth-card { width: 100%; max-width: 380px; background: var(--card); border: 1px solid var(--border2); border-radius: 18px; padding: 24px; position: relative; z-index: 1; }
+.auth-tabs { display: flex; background: var(--surface); border-radius: 10px; padding: 3px; margin-bottom: 20px; }
+.auth-tab { flex: 1; padding: 8px; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 1px; color: var(--muted); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
 .auth-tab.active { background: var(--blue); color: #fff; }
-
 .auth-form { display: flex; flex-direction: column; gap: 10px; }
 .auth-form.hidden { display: none; }
-
-.field-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-
-input[type="email"], input[type="password"], input[type="text"] {
-  width: 100%;
-  padding: 11px 14px;
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  color: var(--text);
-  font-family: 'Barlow', sans-serif;
-  font-size: 15px;
-  outline: none;
-  transition: border-color 0.2s;
-}
+.field-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+input[type="email"], input[type="password"], input[type="text"] { width: 100%; padding: 11px 14px; background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s; }
 input:focus { border-color: var(--blue); }
-
-.btn-primary {
-  width: 100%;
-  padding: 13px;
-  background: var(--blue);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.1s;
-  margin-top: 4px;
-}
+.btn-primary { width: 100%; padding: 13px; background: var(--blue); color: #fff; border: none; border-radius: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 1px; cursor: pointer; transition: opacity 0.2s, transform 0.1s; margin-top: 4px; }
 .btn-primary:active { transform: scale(0.98); opacity: 0.9; }
-
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 14px 0;
-  color: var(--muted);
-  font-size: 12px;
-}
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border2);
-}
-
-.btn-google {
-  width: 100%;
-  padding: 12px;
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  font-family: 'Barlow', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: background 0.2s, transform 0.1s;
-}
+.divider { display: flex; align-items: center; gap: 10px; margin: 14px 0; color: var(--muted); font-size: 12px; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+.btn-google { width: 100%; padding: 12px; background: var(--surface); color: var(--text); border: 1px solid var(--border2); border-radius: 10px; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s, transform 0.1s; }
 .btn-google:hover { background: var(--card2); }
 .btn-google:active { transform: scale(0.98); }
-
-.google-icon {
-  width: 18px; height: 18px;
-  flex-shrink: 0;
-}
-
-.auth-error {
-  color: #ff6b6b;
-  font-size: 12px;
-  text-align: center;
-  min-height: 16px;
-  margin-top: 4px;
-}
+.google-icon { width: 18px; height: 18px; flex-shrink: 0; }
+.auth-error { color: #ff6b6b; font-size: 12px; text-align: center; min-height: 16px; margin-top: 4px; }
 
 /* ─── MAIN APP ─── */
-#app { display: none; min-height: 100vh; flex-direction: column; }
+#app { display: none; height: 100vh; flex-direction: column; }
 #app.visible { display: flex; }
 
+/* ─── HEADER ─── */
 .header {
   background: linear-gradient(180deg, #001a5e 0%, var(--blue) 100%);
   padding: 12px 16px 10px;
   border-bottom: 2px solid var(--gold);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: sticky; top: 0; z-index: 100;
+  flex-shrink: 0;
 }
+.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.header-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 2px; color: var(--gold-light); line-height: 1; }
+.header-user { font-size: 11px; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 8px; }
+.btn-logout { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); padding: 4px 10px; border-radius: 6px; font-family: 'Barlow', sans-serif; font-size: 11px; cursor: pointer; font-weight: 600; }
+.progress-wrap { background: rgba(0,0,0,0.3); border-radius: 99px; height: 5px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 99px; transition: width 0.5s ease; }
+.progress-labels { display: flex; justify-content: space-between; font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 4px; }
 
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.header-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: 2px;
-  color: var(--gold-light);
-  line-height: 1;
-}
-
-.header-user {
-  font-size: 11px;
-  color: rgba(255,255,255,0.6);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-logout {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.7);
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-family: 'Barlow', sans-serif;
-  font-size: 11px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.progress-wrap {
-  background: rgba(0,0,0,0.3);
-  border-radius: 99px;
-  height: 5px;
+/* ─── SCREENS CONTAINER ─── */
+.screens {
+  flex: 1;
   overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  border-radius: 99px;
-  transition: width 0.5s ease;
-}
-.progress-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  color: rgba(255,255,255,0.55);
-  margin-top: 4px;
+  position: relative;
 }
 
+/* ─── EACH SCREEN ─── */
+.screen {
+  display: none;
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.screen.active { display: block; }
+
+/* ─── ALBUM INNER TABS ─── */
 .tabs-bar {
-  display: flex;
-  overflow-x: auto;
-  padding: 8px 12px;
-  gap: 6px;
+  display: flex; overflow-x: auto;
+  padding: 8px 12px; gap: 6px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 88px;
-  z-index: 90;
+  position: sticky; top: 0; z-index: 90;
   scrollbar-width: none;
 }
 .tabs-bar::-webkit-scrollbar { display: none; }
-
-.tab-btn {
-  flex-shrink: 0;
-  padding: 5px 13px;
-  border-radius: 99px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  background: var(--card);
-  color: var(--muted);
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.tab-btn.active {
-  background: var(--blue);
-  color: #fff;
-  border-color: var(--blue);
-}
+.tab-btn { flex-shrink: 0; padding: 5px 13px; border-radius: 99px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.5px; background: var(--card); color: var(--muted); border: 1px solid var(--border); cursor: pointer; transition: all 0.15s; }
+.tab-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
 
 .page { display: none; padding: 12px; }
 .page.active { display: block; }
 
-/* ─── GROUP CARD ─── */
-.group-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-bottom: 12px;
-  overflow: hidden;
-}
-
-.group-header {
-  background: linear-gradient(135deg, var(--blue) 0%, #002a80 100%);
-  padding: 9px 14px;
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  background: var(--surface);
+  border-top: 1px solid var(--border2);
+  height: var(--nav-h);
+  flex-shrink: 0;
+  z-index: 200;
 }
+.nav-item {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 8px 4px;
+  transition: all 0.15s;
+  border: none; background: transparent;
+  color: var(--muted);
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-item.active { color: var(--gold-light); }
+.nav-icon {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: all 0.15s; }
+.nav-item.active .nav-icon svg { stroke: var(--gold-light); }
+.nav-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.15s; }
+.nav-dot {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 7px; height: 7px;
+  background: var(--red);
+  border-radius: 50%;
+  border: 1.5px solid var(--surface);
+}
+.nav-item { position: relative; }
 
-.group-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 15px;
-  letter-spacing: 2px;
-  color: var(--gold-light);
-}
-
-.group-count {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  color: rgba(255,255,255,0.6);
-}
-
-/* ─── TEAM ROW ─── */
-.team-row {
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-}
+/* ─── GROUP / TEAM / STICKER ─── */
+.group-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; }
+.group-header { background: linear-gradient(135deg, var(--blue) 0%, #002a80 100%); padding: 9px 14px; display: flex; align-items: center; justify-content: space-between; }
+.group-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 2px; color: var(--gold-light); }
+.group-count { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; color: rgba(255,255,255,0.6); }
+.team-row { padding: 10px 12px; border-bottom: 1px solid var(--border); }
 .team-row:last-child { border-bottom: none; }
-
-.team-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 7px;
-}
-
+.team-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
 .team-left { display: flex; align-items: center; gap: 8px; }
 .team-flag { font-size: 20px; line-height: 1; }
 .team-name { font-weight: 600; font-size: 13px; line-height: 1.2; }
 .team-code { font-size: 10px; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; }
 .team-prog { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold-light); }
-
-/* ─── STICKER GRID ─── */
-.sticker-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 3px;
-}
-
-.stk {
-  aspect-ratio: 1;
-  border-radius: 5px;
-  border: 1.5px solid var(--border2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  color: var(--muted);
-  background: var(--surface);
-  cursor: pointer;
-  transition: transform 0.1s, background 0.15s;
-  user-select: none;
-  letter-spacing: 0;
-}
+.sticker-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.stk { aspect-ratio: 1; border-radius: 5px; border: 1.5px solid var(--border2); display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; color: var(--muted); background: var(--surface); cursor: pointer; transition: transform 0.1s, background 0.15s; user-select: none; }
 .stk:active { transform: scale(0.85); }
 .stk.have { background: var(--green); border-color: var(--green); color: #fff; }
 .stk.repeat { background: var(--gold); border-color: var(--gold); color: #000; }
 
 /* ─── SPECIAL STICKERS ─── */
-.special-section {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px;
-  margin-bottom: 12px;
-}
-
-.special-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 15px;
-  letter-spacing: 2px;
-  color: var(--gold-light);
-  margin-bottom: 12px;
-}
-
-.special-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 4px;
-}
-
-.stk-sp {
-  aspect-ratio: 1;
-  border-radius: 6px;
-  border: 1.5px solid var(--border2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  color: var(--muted);
-  background: var(--surface);
-  cursor: pointer;
-  transition: transform 0.1s, background 0.15s;
-  user-select: none;
-  text-align: center;
-  padding: 2px;
-  line-height: 1.1;
-}
+.special-section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 12px; }
+.special-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 2px; color: var(--gold-light); margin-bottom: 12px; }
+.special-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.stk-sp { aspect-ratio: 1; border-radius: 6px; border: 1.5px solid var(--border2); display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; color: var(--muted); background: var(--surface); cursor: pointer; transition: transform 0.1s, background 0.15s; user-select: none; text-align: center; padding: 2px; line-height: 1.1; }
 .stk-sp:active { transform: scale(0.85); }
 .stk-sp.have { background: var(--green); border-color: var(--green); color: #fff; }
 .stk-sp.repeat { background: var(--gold); border-color: var(--gold); color: #000; }
 
 /* ─── LEGEND ─── */
-.legend {
-  display: flex;
-  gap: 12px;
-  padding: 8px 12px 10px;
-  font-size: 10px;
-  color: var(--muted);
-  flex-wrap: wrap;
-}
+.legend { display: flex; gap: 12px; padding: 8px 12px 10px; font-size: 10px; color: var(--muted); flex-wrap: wrap; }
 .legend-item { display: flex; align-items: center; gap: 5px; }
 .leg-dot { width: 10px; height: 10px; border-radius: 3px; }
 .tap-tip { font-size: 10px; color: var(--muted); text-align: center; padding: 2px 0 8px; }
 
-/* ─── RESUMO ─── */
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.stat-tile {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 12px;
+/* ─── INICIO SCREEN ─── */
+.inicio-hero {
+  background: linear-gradient(135deg, rgba(0,61,165,0.4) 0%, rgba(212,160,23,0.2) 100%);
+  border: 1px solid rgba(212,160,23,0.2);
+  border-radius: 16px; padding: 20px 16px; margin-bottom: 16px;
   text-align: center;
 }
-
-.stat-n {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 34px;
-  font-weight: 800;
-  color: var(--gold-light);
-  line-height: 1;
-}
-
-.stat-lbl {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 3px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.team-list { display: flex; flex-direction: column; gap: 5px; }
-
-.team-list-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
-  background: var(--card);
-  border-radius: 8px;
-  font-size: 12px;
-}
-
-.mini-bar-bg {
-  flex: 1;
-  height: 4px;
-  background: var(--border2);
-  border-radius: 99px;
-  overflow: hidden;
-}
+.inicio-pct { font-family: 'Barlow Condensed', sans-serif; font-size: 64px; font-weight: 800; color: var(--gold-light); line-height: 1; }
+.inicio-pct-lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; margin-top: 2px; font-weight: 600; }
+.inicio-bar-wrap { background: rgba(0,0,0,0.3); border-radius: 99px; height: 8px; overflow: hidden; margin: 14px 0 6px; }
+.inicio-bar-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--gold-light)); border-radius: 99px; transition: width 0.6s ease; }
+.inicio-counts { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+.inicio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.inicio-tile { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px; text-align: center; }
+.inicio-tile-n { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; line-height: 1; margin-bottom: 3px; }
+.inicio-tile-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.inicio-section-title { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; padding: 0 2px; }
+.mini-bar-bg { flex: 1; height: 4px; background: var(--border2); border-radius: 99px; overflow: hidden; }
 .mini-bar-fill { height: 100%; background: var(--green); border-radius: 99px; }
+.team-list { display: flex; flex-direction: column; gap: 5px; }
+.team-list-row { display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: var(--card); border-radius: 8px; font-size: 12px; }
 
-.sync-indicator {
-  font-size: 10px;
-  color: var(--gold);
-  text-align: center;
-  padding: 4px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.sync-indicator.show { opacity: 1; }
+/* ─── BUSCA ─── */
+.search-wrap { padding: 12px 12px 8px; position: sticky; top: 0; background: var(--dark); z-index: 10; }
+.search-input-wrap { position: relative; }
+.search-input-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--muted); fill: none; stroke-width: 2; stroke-linecap: round; }
+#searchInput { width: 100%; padding: 10px 12px 10px 38px; background: var(--card); border: 1px solid var(--border2); border-radius: 10px; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 14px; outline: none; }
+#searchInput:focus { border-color: var(--blue); }
+#searchInput::placeholder { color: var(--muted); }
+.search-results { padding: 0 12px 12px; }
+.search-empty { text-align: center; padding: 48px 16px; color: var(--muted); font-size: 14px; }
+.search-empty-icon { font-size: 36px; margin-bottom: 10px; }
+.search-result-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 6px; cursor: pointer; transition: border-color 0.15s; }
+.search-result-item:active { transform: scale(0.99); }
+.search-result-item.have { border-left: 3px solid var(--green); }
+.search-result-item.repeat { border-left: 3px solid var(--gold); }
+.search-result-item.miss { border-left: 3px solid var(--border2); }
+.sri-num { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; color: var(--gold-light); min-width: 32px; }
+.sri-info { flex: 1; }
+.sri-name { font-size: 12px; font-weight: 600; }
+.sri-section { font-size: 10px; color: var(--muted); margin-top: 1px; }
+.sri-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.5px; }
+.sri-badge.have { background: rgba(0,132,61,0.2); color: #4ade80; }
+.sri-badge.repeat { background: rgba(212,160,23,0.2); color: var(--gold-light); }
+.sri-badge.miss { background: rgba(255,255,255,0.06); color: var(--muted); }
+.search-filter-row { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; scrollbar-width: none; }
+.search-filter-row::-webkit-scrollbar { display: none; }
+.filter-btn { flex-shrink: 0; padding: 4px 12px; border-radius: 99px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; background: var(--card); color: var(--muted); border: 1px solid var(--border); cursor: pointer; transition: all 0.15s; }
+.filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
 
 /* ─── ESTATÍSTICAS ─── */
-.estat-section { margin-bottom: 14px; }
-.estat-section-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; font-weight: 700; letter-spacing: 2px;
-  color: var(--muted); text-transform: uppercase;
-  margin-bottom: 8px; padding: 0 2px;
-}
-.estat-hero {
-  background: linear-gradient(135deg, rgba(0,61,165,0.35) 0%, rgba(212,160,23,0.15) 100%);
-  border: 1px solid rgba(212,160,23,0.25); border-radius: 14px;
-  padding: 16px; margin-bottom: 14px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
-.estat-hero-label {
-  font-size: 10px; color: var(--muted); text-transform: uppercase;
-  letter-spacing: 1.5px; font-weight: 600; margin-bottom: 4px;
-}
-.estat-hero-valor {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 36px; font-weight: 800; color: var(--gold-light); line-height: 1;
-}
+.estat-hero { background: linear-gradient(135deg, rgba(0,61,165,0.35) 0%, rgba(212,160,23,0.15) 100%); border: 1px solid rgba(212,160,23,0.25); border-radius: 14px; padding: 16px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.estat-hero-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 4px; }
+.estat-hero-valor { font-family: 'Barlow Condensed', sans-serif; font-size: 36px; font-weight: 800; color: var(--gold-light); line-height: 1; }
 .estat-hero-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
 .estat-hero-icon { font-size: 36px; line-height: 1; }
-.estat-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;
-}
-.estat-tile {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 13px 12px; text-align: center;
-}
-.estat-tile-n {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 26px; font-weight: 800; line-height: 1; margin-bottom: 3px;
-}
+.estat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.estat-tile { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 13px 12px; text-align: center; }
+.estat-tile-n { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; line-height: 1; margin-bottom: 3px; }
 .estat-tile-n.green { color: #4ade80; }
 .estat-tile-n.gold { color: var(--gold-light); }
 .estat-tile-n.red { color: #f87171; }
 .estat-tile-n.blue { color: #60a5fa; }
-.estat-tile-lbl {
-  font-size: 10px; color: var(--muted);
-  text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;
-}
-.estat-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 14px; margin-bottom: 8px;
-}
-.estat-card-row {
-  display: flex; align-items: center; justify-content: space-between; gap: 8px;
-}
+.estat-tile-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.estat-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 8px; }
+.estat-card-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .estat-card-icon { font-size: 18px; line-height: 1; }
 .estat-card-body { flex: 1; }
 .estat-card-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
 .estat-card-sub { font-size: 11px; color: var(--muted); }
-.estat-card-value {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 20px; font-weight: 800; text-align: right;
-}
+.estat-card-value { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 800; text-align: right; }
 .estat-card-value.green { color: #4ade80; }
 .estat-card-value.gold { color: var(--gold-light); }
 .estat-card-value.red { color: #f87171; }
 .estat-divider { height: 1px; background: var(--border); margin: 10px 0; }
 .estat-aviso { font-size: 10px; color: var(--muted); text-align: center; padding: 4px 0 8px; line-height: 1.5; }
+.estat-section-title { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; padding: 0 2px; }
 
-/* ─── TOAST ─── */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: var(--card2);
-  border: 1px solid var(--border2);
-  color: var(--text);
-  padding: 10px 20px;
-  border-radius: 99px;
-  font-size: 13px;
-  font-weight: 600;
-  z-index: 999;
-  transition: transform 0.3s ease;
-  white-space: nowrap;
-}
+/* ─── PERFIL / AMIGOS ─── */
+.perfil-header { background: linear-gradient(135deg, rgba(0,61,165,0.3) 0%, rgba(212,160,23,0.1) 100%); border: 1px solid var(--border2); border-radius: 16px; padding: 20px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+.perfil-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; color: #fff; flex-shrink: 0; border: 2px solid var(--gold); }
+.perfil-name { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); line-height: 1.1; }
+.perfil-email { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.perfil-stats { display: flex; gap: 16px; margin-top: 8px; }
+.perfil-stat { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; }
+.perfil-stat span { color: var(--gold-light); }
+.section-title { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; padding: 0 2px; }
+.add-amigo-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+.add-amigo-row { display: flex; gap: 8px; }
+.add-amigo-row input { flex: 1; padding: 10px 12px; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 13px; outline: none; }
+.add-amigo-row input:focus { border-color: var(--blue); }
+.btn-add { padding: 10px 16px; background: var(--blue); color: #fff; border: none; border-radius: 8px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap; }
+.amigo-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; }
+.amigo-row { display: flex; align-items: center; gap: 10px; }
+.amigo-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--card2); display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; color: var(--muted); flex-shrink: 0; }
+.amigo-name { font-size: 13px; font-weight: 600; flex: 1; }
+.amigo-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.amigo-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: rgba(0,132,61,0.15); color: #4ade80; }
+.amigo-repetidas { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); display: none; }
+.amigo-repetidas.open { display: block; }
+.rep-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.rep-chip { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; padding: 3px 7px; border-radius: 5px; background: rgba(212,160,23,0.15); color: var(--gold-light); border: 1px solid rgba(212,160,23,0.2); }
+.rep-chip.eu-preciso { background: rgba(0,132,61,0.2); color: #4ade80; border-color: rgba(0,132,61,0.3); }
+.amigo-actions { display: flex; gap: 6px; margin-top: 2px; }
+.btn-sm { padding: 5px 10px; border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px; cursor: pointer; border: 1px solid var(--border2); background: var(--surface); color: var(--muted); transition: all 0.15s; }
+.btn-sm.danger { border-color: rgba(200,16,46,0.3); color: #f87171; }
+.minhas-rep-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 8px; }
+.minhas-rep-empty { font-size: 12px; color: var(--muted); text-align: center; padding: 16px 0; }
+.rep-list { display: flex; flex-wrap: wrap; gap: 5px; }
+.rep-item { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: rgba(212,160,23,0.12); color: var(--gold-light); border: 1px solid rgba(212,160,23,0.2); }
+
+/* ─── MISC ─── */
+.sync-indicator { font-size: 10px; color: var(--gold); text-align: center; padding: 4px; opacity: 0; transition: opacity 0.3s; }
+.sync-indicator.show { opacity: 1; }
+.toast { position: fixed; bottom: calc(var(--nav-h) + 12px); left: 50%; transform: translateX(-50%) translateY(80px); background: var(--card2); border: 1px solid var(--border2); color: var(--text); padding: 10px 20px; border-radius: 99px; font-size: 13px; font-weight: 600; z-index: 999; transition: transform 0.3s ease; white-space: nowrap; }
 .toast.show { transform: translateX(-50%) translateY(0); }
-
-/* ─── LOADING ─── */
-#loadingScreen {
-  position: fixed;
-  inset: 0;
-  background: var(--dark);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.4s;
-}
+#loadingScreen { position: fixed; inset: 0; background: var(--dark); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.4s; }
 #loadingScreen.hide { opacity: 0; pointer-events: none; }
-
-.loader-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 28px;
-  letter-spacing: 3px;
-  color: var(--gold-light);
-  margin-bottom: 20px;
-}
-.spinner {
-  width: 36px; height: 36px;
-  border: 3px solid var(--border2);
-  border-top-color: var(--gold);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
+.loader-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: 3px; color: var(--gold-light); margin-bottom: 20px; }
+.spinner { width: 36px; height: 36px; border: 3px solid var(--border2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+.screen-pad { padding: 12px; }
 </style>
 </head>
 <body>
 
-<!-- Loading -->
 <div id="loadingScreen">
   <div class="loader-title">⚽ COPA 2026</div>
   <div class="spinner"></div>
 </div>
 
-<!-- Auth Screen -->
+<!-- Auth -->
 <div id="authScreen" style="display:none">
   <div class="auth-logo">Álbum Oficial</div>
   <div class="auth-title">COPA DO MUNDO 2026</div>
   <div class="auth-sub">Controle suas figurinhas</div>
-
   <div class="auth-card">
     <div class="auth-tabs">
       <div class="auth-tab active" onclick="switchAuthTab('login')">Entrar</div>
       <div class="auth-tab" onclick="switchAuthTab('signup')">Criar Conta</div>
     </div>
-
-    <!-- Login -->
     <div class="auth-form" id="formLogin">
-      <div>
-        <div class="field-label">E-mail</div>
-        <input type="email" id="loginEmail" placeholder="seu@email.com">
-      </div>
-      <div>
-        <div class="field-label">Senha</div>
-        <input type="password" id="loginPass" placeholder="••••••••">
-      </div>
+      <div><div class="field-label">E-mail</div><input type="email" id="loginEmail" placeholder="seu@email.com"></div>
+      <div><div class="field-label">Senha</div><input type="password" id="loginPass" placeholder="••••••••"></div>
       <button class="btn-primary" onclick="doLogin()">ENTRAR</button>
       <div class="divider">ou</div>
       <button class="btn-google" onclick="doGoogle()">
@@ -683,21 +358,10 @@ input:focus { border-color: var(--blue); }
       </button>
       <div class="auth-error" id="loginError"></div>
     </div>
-
-    <!-- Signup -->
     <div class="auth-form hidden" id="formSignup">
-      <div>
-        <div class="field-label">Nome</div>
-        <input type="text" id="signupName" placeholder="Seu nome">
-      </div>
-      <div>
-        <div class="field-label">E-mail</div>
-        <input type="email" id="signupEmail" placeholder="seu@email.com">
-      </div>
-      <div>
-        <div class="field-label">Senha</div>
-        <input type="password" id="signupPass" placeholder="mínimo 6 caracteres">
-      </div>
+      <div><div class="field-label">Nome</div><input type="text" id="signupName" placeholder="Seu nome"></div>
+      <div><div class="field-label">E-mail</div><input type="email" id="signupEmail" placeholder="seu@email.com"></div>
+      <div><div class="field-label">Senha</div><input type="password" id="signupPass" placeholder="mínimo 6 caracteres"></div>
       <button class="btn-primary" onclick="doSignup()">CRIAR CONTA</button>
       <div class="divider">ou</div>
       <button class="btn-google" onclick="doGoogle()">
@@ -711,6 +375,7 @@ input:focus { border-color: var(--blue); }
 
 <!-- Main App -->
 <div id="app">
+  <!-- Header -->
   <div class="header">
     <div class="header-top">
       <div class="header-title">⚽ COPA 2026</div>
@@ -719,33 +384,173 @@ input:focus { border-color: var(--blue); }
         <button class="btn-logout" onclick="doLogout()">Sair</button>
       </div>
     </div>
-    <div class="progress-wrap">
-      <div class="progress-fill" id="globalBar" style="width:0%"></div>
-    </div>
-    <div class="progress-labels">
-      <span id="globalCount">0 figurinhas</span>
-      <span id="globalPct">0%</span>
-    </div>
+    <div class="progress-wrap"><div class="progress-fill" id="globalBar" style="width:0%"></div></div>
+    <div class="progress-labels"><span id="globalCount">0 figurinhas</span><span id="globalPct">0%</span></div>
   </div>
 
-  <div class="tabs-bar" id="tabsBar"></div>
+  <!-- Screens -->
+  <div class="screens">
 
-  <div id="pages"></div>
+    <!-- INÍCIO -->
+    <div class="screen active" id="screen-inicio">
+      <div class="screen-pad">
+        <div class="inicio-hero">
+          <div class="inicio-pct" id="i_pct">0%</div>
+          <div class="inicio-pct-lbl">do álbum completo</div>
+          <div class="inicio-bar-wrap"><div class="inicio-bar-fill" id="i_bar" style="width:0%"></div></div>
+          <div class="inicio-counts"><span id="i_have_lbl">0 figurinhas</span><span id="i_miss_lbl">0 faltando</span></div>
+        </div>
+        <div class="inicio-grid">
+          <div class="inicio-tile"><div class="inicio-tile-n" style="color:#4ade80" id="i_have">0</div><div class="inicio-tile-lbl">Tenho</div></div>
+          <div class="inicio-tile"><div class="inicio-tile-n" style="color:#f87171" id="i_miss">0</div><div class="inicio-tile-lbl">Faltam</div></div>
+          <div class="inicio-tile"><div class="inicio-tile-n" style="color:var(--gold-light)" id="i_rep">0</div><div class="inicio-tile-lbl">Repetidas</div></div>
+          <div class="inicio-tile"><div class="inicio-tile-n" style="color:#60a5fa" id="i_custo">R$0</div><div class="inicio-tile-lbl">Para completar</div></div>
+        </div>
+        <div class="inicio-section-title">📋 Por seleção</div>
+        <div class="team-list" id="i_teamList"></div>
+      </div>
+    </div>
+
+    <!-- ÁLBUM -->
+    <div class="screen" id="screen-album">
+      <div class="tabs-bar" id="tabsBar"></div>
+      <div id="pages"></div>
+    </div>
+
+    <!-- BUSCAR -->
+    <div class="screen" id="screen-buscar">
+      <div class="search-wrap">
+        <div class="search-input-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Buscar figurinha... (ex: BRA, 10, FWC)" oninput="doSearch()">
+        </div>
+        <div class="search-filter-row">
+          <button class="filter-btn active" onclick="setFilter('todos',this)">Todos</button>
+          <button class="filter-btn" onclick="setFilter('falta',this)">Faltam</button>
+          <button class="filter-btn" onclick="setFilter('tenho',this)">Tenho</button>
+          <button class="filter-btn" onclick="setFilter('repetida',this)">Repetidas</button>
+        </div>
+      </div>
+      <div class="search-results" id="searchResults">
+        <div class="search-empty">
+          <div class="search-empty-icon">🔍</div>
+          <div>Digite para buscar qualquer figurinha</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTATÍSTICAS -->
+    <div class="screen" id="screen-estat">
+      <div class="screen-pad">
+        <div class="estat-hero">
+          <div>
+            <div class="estat-hero-label">Para completar o álbum</div>
+            <div class="estat-hero-valor" id="e_falta_valor">R$ 0</div>
+            <div class="estat-hero-sub" id="e_falta_sub">— figurinhas faltando</div>
+          </div>
+          <div class="estat-hero-icon">🏆</div>
+        </div>
+        <div class="estat-grid">
+          <div class="estat-tile"><div class="estat-tile-n green" id="e_have">0</div><div class="estat-tile-lbl">Tenho</div></div>
+          <div class="estat-tile"><div class="estat-tile-n red" id="e_miss">0</div><div class="estat-tile-lbl">Faltam</div></div>
+          <div class="estat-tile"><div class="estat-tile-n gold" id="e_rep">0</div><div class="estat-tile-lbl">Repetidas</div></div>
+          <div class="estat-tile"><div class="estat-tile-n blue" id="e_pct">0%</div><div class="estat-tile-lbl">Completo</div></div>
+        </div>
+        <div class="estat-section-title">💰 Investimento</div>
+        <div class="estat-card">
+          <div class="estat-card-row">
+            <div class="estat-card-icon">✅</div>
+            <div class="estat-card-body"><div class="estat-card-title">Já investido</div><div class="estat-card-sub" id="e_inv_sub">0 figurinhas × R$ 1,00</div></div>
+            <div class="estat-card-value green" id="e_inv_valor">R$ 0</div>
+          </div>
+          <div class="estat-divider"></div>
+          <div class="estat-card-row">
+            <div class="estat-card-icon">🎯</div>
+            <div class="estat-card-body"><div class="estat-card-title">Para completar</div><div class="estat-card-sub" id="e_comp_sub">0 figurinhas restantes</div></div>
+            <div class="estat-card-value red" id="e_comp_valor">R$ 0</div>
+          </div>
+          <div class="estat-divider"></div>
+          <div class="estat-card-row">
+            <div class="estat-card-icon">📦</div>
+            <div class="estat-card-body"><div class="estat-card-title">Pacotes estimados</div><div class="estat-card-sub">7 fig/pacote · R$ 7,00 cada</div></div>
+            <div class="estat-card-value gold" id="e_pacotes">0 pcts</div>
+          </div>
+        </div>
+        <div class="estat-section-title">📊 Por seção</div>
+        <div id="e_secoes"></div>
+        <div class="estat-aviso">* Coca-Cola excluída do cálculo de custo.<br>Cada figurinha = R$ 1,00 (pacote 7 fig · R$ 7,00).</div>
+      </div>
+    </div>
+
+    <!-- PERFIL / AMIGOS -->
+    <div class="screen" id="screen-perfil">
+      <div class="screen-pad">
+        <div class="perfil-header">
+          <div class="perfil-avatar" id="p_avatar">?</div>
+          <div>
+            <div class="perfil-name" id="p_name">—</div>
+            <div class="perfil-email" id="p_email">—</div>
+            <div class="perfil-stats">
+              <div class="perfil-stat"><span id="p_have">0</span> figurinhas</div>
+              <div class="perfil-stat"><span id="p_rep">0</span> repetidas</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">🔄 Minhas repetidas</div>
+        <div class="minhas-rep-card">
+          <div id="minhasRepContent"><div class="minhas-rep-empty">Nenhuma figurinha repetida ainda</div></div>
+        </div>
+
+        <div class="section-title">👥 Amigos</div>
+        <div class="add-amigo-card">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Adicione um amigo pelo e-mail cadastrado:</div>
+          <div class="add-amigo-row">
+            <input type="email" id="amigoEmail" placeholder="email do amigo...">
+            <button class="btn-add" onclick="addAmigo()">Adicionar</button>
+          </div>
+          <div class="auth-error" id="amigoError" style="margin-top:6px"></div>
+        </div>
+        <div id="amigosList"><div class="search-empty" style="padding:24px 0"><div class="search-empty-icon">👥</div><div style="font-size:13px">Nenhum amigo adicionado ainda</div></div></div>
+      </div>
+    </div>
+
+  </div><!-- /screens -->
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="showScreen('inicio',this)">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <span class="nav-label">Início</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('album',this)">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <span class="nav-label">Álbum</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('buscar',this)">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <span class="nav-label">Buscar</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('estat',this)">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <span class="nav-label">Stats</span>
+    </button>
+    <button class="nav-item" id="navPerfil" onclick="showScreen('perfil',this)">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <span class="nav-label">Perfil</span>
+    </button>
+  </nav>
 
   <div class="sync-indicator" id="syncInd">💾 Salvo</div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDKs -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { getFirestore, doc, getDoc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-// ─────────────────────────────────────────────────
-// 🔥 CONFIGURAÇÃO FIREBASE — SUBSTITUA PELOS SEUS DADOS
-// ─────────────────────────────────────────────────
 const firebaseConfig = {
   apiKey: "AIzaSyCCkdUKV8D0yYHdhQKKznpNA6g5o1K78J0",
   authDomain: "figurinhascopa-d6eb1.firebaseapp.com",
@@ -755,7 +560,6 @@ const firebaseConfig = {
   appId: "1:635701601546:web:29e666106f5d3e632246f3",
   measurementId: "G-ZFM002VMNK"
 };
-// ─────────────────────────────────────────────────
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -782,20 +586,43 @@ const PAG_STICKERS = ['00','1','2','3','4','5','6','7','8'];
 const FWC_STICKERS = ['9','10','11','12','13','14','15','16','17','18','19'];
 const CC_STICKERS = ['CC1','CC2','CC3','CC4','CC5','CC6','CC7','CC8','CC9','CC10','CC11','CC12','CC13','CC14'];
 
+// Build full sticker index for search
+const ALL_STICKERS = [];
+Object.entries(GROUPS).forEach(([g, teams]) => {
+  teams.forEach(team => {
+    TEAM_STICKERS.forEach(n => {
+      ALL_STICKERS.push({ key: team.code+'_'+n, label: n, section: `Grupo ${g} · ${team.name}`, team: team.code, flag: team.flag, name: team.name });
+    });
+  });
+});
+PAG_STICKERS.forEach(n => ALL_STICKERS.push({ key: 'PAG_'+n, label: n, section: 'Página Inicial', team: 'PAG', flag: '📄', name: 'Pág. Inicial' }));
+FWC_STICKERS.forEach(n => ALL_STICKERS.push({ key: 'FWC_'+n, label: n, section: 'FIFA World Cup History', team: 'FWC', flag: '🏆', name: 'FWC History' }));
+CC_STICKERS.forEach(n => ALL_STICKERS.push({ key: 'CC_'+n, label: n, section: 'Figurinhas Coca-Cola', team: 'CC', flag: '🥤', name: 'Coca-Cola' }));
+
 let state = {};
 let currentUser = null;
 let saveTimeout = null;
 let unsubSnapshot = null;
 let pendingSave = false;
+let amigos = []; // [{uid, name, email, stickers}]
+let searchFilter = 'todos';
 
-// ─── AUTH HELPERS ───
+// ─── NAVIGATION ───
+window.showScreen = (name, btn) => {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(name === 'buscar') document.getElementById('searchInput').focus();
+};
+
+// ─── AUTH ───
 function showToast(msg, dur=3000) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), dur);
 }
-
 function showError(id, msg) { document.getElementById(id).textContent = msg; }
 
 window.switchAuthTab = (tab) => {
@@ -803,14 +630,12 @@ window.switchAuthTab = (tab) => {
   document.getElementById('formLogin').classList.toggle('hidden', tab !== 'login');
   document.getElementById('formSignup').classList.toggle('hidden', tab !== 'signup');
 };
-
 window.doLogin = async () => {
   const email = document.getElementById('loginEmail').value.trim();
   const pass = document.getElementById('loginPass').value;
   try { await signInWithEmailAndPassword(auth, email, pass); }
   catch(e) { showError('loginError', friendlyError(e.code)); }
 };
-
 window.doSignup = async () => {
   const name = document.getElementById('signupName').value.trim();
   const email = document.getElementById('signupEmail').value.trim();
@@ -819,29 +644,22 @@ window.doSignup = async () => {
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     await updateProfile(cred.user, { displayName: name });
+    // Save user profile to Firestore for friend lookup
+    await setDoc(doc(db, 'usuarios', cred.user.uid), { name, email, uid: cred.user.uid }, { merge: true });
   } catch(e) { showError('signupError', friendlyError(e.code)); }
 };
-
 window.doGoogle = async () => {
-  try { await signInWithPopup(auth, googleProvider); }
-  catch(e) { showError('loginError', friendlyError(e.code)); showError('signupError', friendlyError(e.code)); }
+  try {
+    const cred = await signInWithPopup(auth, googleProvider);
+    await setDoc(doc(db, 'usuarios', cred.user.uid), { name: cred.user.displayName, email: cred.user.email, uid: cred.user.uid }, { merge: true });
+  } catch(e) { showError('loginError', friendlyError(e.code)); showError('signupError', friendlyError(e.code)); }
 };
-
 window.doLogout = async () => {
   if(unsubSnapshot) unsubSnapshot();
   await signOut(auth);
 };
-
 function friendlyError(code) {
-  const map = {
-    'auth/invalid-email': 'E-mail inválido.',
-    'auth/user-not-found': 'Usuário não encontrado.',
-    'auth/wrong-password': 'Senha incorreta.',
-    'auth/email-already-in-use': 'E-mail já cadastrado.',
-    'auth/weak-password': 'Senha muito fraca (mínimo 6 caracteres).',
-    'auth/popup-closed-by-user': 'Login cancelado.',
-    'auth/invalid-credential': 'E-mail ou senha incorretos.',
-  };
+  const map = { 'auth/invalid-email':'E-mail inválido.','auth/user-not-found':'Usuário não encontrado.','auth/wrong-password':'Senha incorreta.','auth/email-already-in-use':'E-mail já cadastrado.','auth/weak-password':'Senha muito fraca (mínimo 6 caracteres).','auth/popup-closed-by-user':'Login cancelado.','auth/invalid-credential':'E-mail ou senha incorretos.' };
   return map[code] || 'Erro: ' + code;
 }
 
@@ -849,471 +667,402 @@ function friendlyError(code) {
 async function loadUserData(uid) {
   const ref = doc(db, 'albuns', uid);
   unsubSnapshot = onSnapshot(ref, snap => {
-    if(pendingSave) return; // don't overwrite local changes mid-save
-    if(snap.exists()) {
-      state = snap.data().stickers || {};
-    } else {
-      state = {};
-    }
+    if(pendingSave) return;
+    state = snap.exists() ? (snap.data().stickers || {}) : {};
     refreshAllUI();
-  }, err => {
-    console.error('Firestore read error:', err);
-    showToast('⚠️ Erro ao carregar dados: verifique as regras do Firestore');
-  });
+  }, err => { showToast('⚠️ Erro ao carregar dados'); });
 }
-
 function scheduleSave() {
   clearTimeout(saveTimeout);
   saveTimeout = setTimeout(saveUserData, 800);
 }
-
 async function saveUserData() {
   if(!currentUser) return;
   pendingSave = true;
-  const ref = doc(db, 'albuns', currentUser.uid);
   try {
-    await setDoc(ref, { stickers: state, updatedAt: new Date().toISOString() }, { merge: true });
+    await setDoc(doc(db, 'albuns', currentUser.uid), { stickers: state, updatedAt: new Date().toISOString() }, { merge: true });
     const ind = document.getElementById('syncInd');
     ind.classList.add('show');
     setTimeout(() => ind.classList.remove('show'), 1500);
-  } catch(e) {
-    console.error('Save error:', e);
-    showToast('⚠️ Erro ao salvar! Verifique as regras do Firestore.');
-  }
+  } catch(e) { showToast('⚠️ Erro ao salvar!'); }
   pendingSave = false;
 }
 
-// ─── BUILD UI ───
+// ─── AMIGOS ───
+window.addAmigo = async () => {
+  const email = document.getElementById('amigoEmail').value.trim().toLowerCase();
+  const errEl = document.getElementById('amigoError');
+  errEl.textContent = '';
+  if(!email) return;
+  if(email === currentUser.email.toLowerCase()) { errEl.textContent = 'Esse é você mesmo!'; return; }
+  if(amigos.find(a => a.email.toLowerCase() === email)) { errEl.textContent = 'Amigo já adicionado.'; return; }
+
+  try {
+    // Find user by email in usuarios collection
+    const q = query(collection(db, 'usuarios'), where('email', '==', email));
+    const snap = await getDocs(q);
+    if(snap.empty) { errEl.textContent = 'Usuário não encontrado. Verifique o e-mail.'; return; }
+
+    const amigoDoc = snap.docs[0].data();
+    // Load their stickers
+    const albumSnap = await getDoc(doc(db, 'albuns', amigoDoc.uid));
+    const amigoStickers = albumSnap.exists() ? (albumSnap.data().stickers || {}) : {};
+
+    // Save friend list to firestore
+    const myFriends = (await getDoc(doc(db, 'usuarios', currentUser.uid))).data()?.amigos || [];
+    if(!myFriends.includes(amigoDoc.uid)) {
+      await setDoc(doc(db, 'usuarios', currentUser.uid), { amigos: [...myFriends, amigoDoc.uid] }, { merge: true });
+    }
+
+    amigos.push({ uid: amigoDoc.uid, name: amigoDoc.name, email: amigoDoc.email, stickers: amigoStickers });
+    document.getElementById('amigoEmail').value = '';
+    renderAmigos();
+    showToast('✅ ' + amigoDoc.name + ' adicionado!');
+  } catch(e) { errEl.textContent = 'Erro ao buscar usuário.'; console.error(e); }
+};
+
+async function loadAmigos() {
+  if(!currentUser) return;
+  try {
+    const myDoc = await getDoc(doc(db, 'usuarios', currentUser.uid));
+    const friendIds = myDoc.data()?.amigos || [];
+    amigos = [];
+    for(const uid of friendIds) {
+      const uSnap = await getDoc(doc(db, 'usuarios', uid));
+      const aSnap = await getDoc(doc(db, 'albuns', uid));
+      if(uSnap.exists()) {
+        amigos.push({ uid, name: uSnap.data().name, email: uSnap.data().email, stickers: aSnap.exists() ? (aSnap.data().stickers||{}) : {} });
+      }
+    }
+    renderAmigos();
+  } catch(e) { console.error('loadAmigos error', e); }
+}
+
+function renderAmigos() {
+  const el = document.getElementById('amigosList');
+  if(amigos.length === 0) {
+    el.innerHTML = '<div class="search-empty" style="padding:24px 0"><div class="search-empty-icon">👥</div><div style="font-size:13px">Nenhum amigo adicionado ainda</div></div>';
+    return;
+  }
+  el.innerHTML = '';
+  amigos.forEach((amigo, idx) => {
+    // Count their repetidas that I need
+    const theirReps = ALL_STICKERS.filter(s => (amigo.stickers[s.key]||0) === 2);
+    const euPrecisoKeys = theirReps.filter(s => (state[s.key]||0) === 0).map(s => s.key);
+    const initials = amigo.name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+
+    const card = document.createElement('div');
+    card.className = 'amigo-card';
+    card.innerHTML = `
+      <div class="amigo-row">
+        <div class="amigo-avatar">${initials}</div>
+        <div style="flex:1">
+          <div class="amigo-name">${amigo.name}</div>
+          <div class="amigo-sub">${amigo.email}</div>
+        </div>
+        ${euPrecisoKeys.length > 0 ? `<div class="amigo-badge">+${euPrecisoKeys.length} pra mim</div>` : ''}
+      </div>
+      <div class="amigo-actions" style="margin-top:8px">
+        <button class="btn-sm" onclick="toggleAmigoRep(${idx})">Ver repetidas</button>
+        <button class="btn-sm danger" onclick="removeAmigo(${idx})">Remover</button>
+      </div>
+      <div class="amigo-repetidas" id="amigoRep_${idx}">
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px">Repetidas dele · <span style="color:#4ade80">${euPrecisoKeys.length} que eu preciso</span></div>
+        <div class="rep-chips" id="repChips_${idx}"></div>
+      </div>
+    `;
+    el.appendChild(card);
+
+    // Render rep chips
+    const chips = document.getElementById('repChips_'+idx);
+    if(theirReps.length === 0) {
+      chips.innerHTML = '<span style="font-size:11px;color:var(--muted)">Nenhuma repetida ainda</span>';
+    } else {
+      theirReps.forEach(s => {
+        const euPreciso = euPrecisoKeys.includes(s.key);
+        const chip = document.createElement('span');
+        chip.className = 'rep-chip' + (euPreciso ? ' eu-preciso' : '');
+        chip.title = s.section;
+        chip.textContent = s.team + ' ' + s.label;
+        chips.appendChild(chip);
+      });
+    }
+  });
+
+  // Update perfil stats
+  updatePerfilStats();
+}
+
+window.toggleAmigoRep = (idx) => {
+  const el = document.getElementById('amigoRep_'+idx);
+  el.classList.toggle('open');
+};
+
+window.removeAmigo = async (idx) => {
+  const amigo = amigos[idx];
+  amigos.splice(idx, 1);
+  const myFriends = amigos.map(a => a.uid);
+  await setDoc(doc(db, 'usuarios', currentUser.uid), { amigos: myFriends }, { merge: true });
+  renderAmigos();
+  showToast('Amigo removido');
+};
+
+// ─── BUILD ALBUM UI ───
 function buildApp() {
   const tabsBar = document.getElementById('tabsBar');
   const pages = document.getElementById('pages');
-  tabsBar.innerHTML = '';
-  pages.innerHTML = '';
-
-  // Resumo tab
+  tabsBar.innerHTML = ''; pages.innerHTML = '';
   addTab(tabsBar, 'resumo', 'Resumo', true);
   pages.appendChild(buildResumoPage());
-
-  // Estatísticas
-  addTab(tabsBar, 'estat', 'Estatísticas', false);
-  pages.appendChild(buildEstatPage());
-
-  // Groups
   Object.keys(GROUPS).forEach(g => {
     addTab(tabsBar, 'g_'+g, 'Grupo '+g, false);
     pages.appendChild(buildGroupPage(g));
   });
-
-  // Especiais
   addTab(tabsBar, 'especiais', 'Especiais', false);
   pages.appendChild(buildEspeciaisPage());
-
-  showPage('resumo');
+  showAlbumPage('resumo');
 }
 
 function addTab(bar, key, label, active) {
   const btn = document.createElement('button');
   btn.className = 'tab-btn' + (active ? ' active' : '');
   btn.textContent = label;
-  btn.dataset.page = key;
-  btn.onclick = () => { showPage(key); bar.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b===btn)); };
+  btn.onclick = () => { showAlbumPage(key); bar.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b===btn)); };
   bar.appendChild(btn);
 }
-
-function showPage(key) {
+function showAlbumPage(key) {
   document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page_'+key));
 }
 
 function buildGroupPage(g) {
   const page = document.createElement('div');
-  page.className = 'page';
-  page.id = 'page_g_' + g;
-
+  page.className = 'page'; page.id = 'page_g_' + g;
   const card = document.createElement('div');
   card.className = 'group-card';
-  card.innerHTML = `<div class="group-header"><div class="group-label">GRUPO ${g}</div><div class="group-count" id="gcount_${g}">0/84</div></div>`;
-
+  card.innerHTML = `<div class="group-header"><div class="group-label">GRUPO ${g}</div><div class="group-count" id="gcount_${g}">0/${GROUPS[g].length*20}</div></div>`;
   GROUPS[g].forEach(team => {
     const row = document.createElement('div');
     row.className = 'team-row';
-    row.innerHTML = `
-      <div class="team-top">
-        <div class="team-left">
-          <span class="team-flag">${team.flag}</span>
-          <div><div class="team-name">${team.name}</div><div class="team-code">${team.code}</div></div>
-        </div>
-        <div class="team-prog" id="tp_${team.code}">0/20</div>
-      </div>
-      <div class="sticker-grid" id="sg_${team.code}"></div>
-    `;
+    row.innerHTML = `<div class="team-top"><div class="team-left"><span class="team-flag">${team.flag}</span><div><div class="team-name">${team.name}</div><div class="team-code">${team.code}</div></div></div><div class="team-prog" id="tp_${team.code}">0/20</div></div><div class="sticker-grid" id="sg_${team.code}"></div>`;
     TEAM_STICKERS.forEach(n => {
       const key = team.code + '_' + n;
       const s = document.createElement('div');
-      s.className = 'stk';
-      s.textContent = n;
-      s.dataset.key = key;
-      s.onclick = () => {
-        state[key] = ((state[key]||0) + 1) % 3;
-        updateStkEl(s, state[key]);
-        updateTeamProg(team.code);
-        updateGroupCount(g);
-        updateGlobal();
-        updateResumo();
-        updateEstat();
-        scheduleSave();
-      };
+      s.className = 'stk'; s.textContent = n; s.dataset.key = key;
+      s.onclick = () => { state[key] = ((state[key]||0)+1)%3; updateStkEl(s,state[key]); updateTeamProg(team.code); updateGroupCount(g); updateAllStats(); scheduleSave(); };
       row.querySelector('#sg_'+team.code).appendChild(s);
     });
     card.appendChild(row);
   });
-
   page.appendChild(card);
-  page.insertAdjacentHTML('beforeend', `
-    <div class="legend">
-      <div class="legend-item"><div class="leg-dot" style="background:var(--surface);border:1.5px solid var(--border2)"></div>Falta</div>
-      <div class="legend-item"><div class="leg-dot" style="background:var(--green)"></div>Tenho</div>
-      <div class="legend-item"><div class="leg-dot" style="background:var(--gold)"></div>Repetida</div>
-    </div>
-    <div class="tap-tip">Toque 1× = tenho &nbsp;·&nbsp; 2× = repetida &nbsp;·&nbsp; 3× = falta</div>
-  `);
+  page.insertAdjacentHTML('beforeend', `<div class="legend"><div class="legend-item"><div class="leg-dot" style="background:var(--surface);border:1.5px solid var(--border2)"></div>Falta</div><div class="legend-item"><div class="leg-dot" style="background:var(--green)"></div>Tenho</div><div class="legend-item"><div class="leg-dot" style="background:var(--gold)"></div>Repetida</div></div><div class="tap-tip">Toque 1× = tenho &nbsp;·&nbsp; 2× = repetida &nbsp;·&nbsp; 3× = falta</div>`);
   return page;
 }
 
 function buildEspeciaisPage() {
   const page = document.createElement('div');
-  page.className = 'page';
-  page.id = 'page_especiais';
-
-  // Página Inicial
-  const pag = document.createElement('div');
-  pag.className = 'special-section';
-  pag.innerHTML = '<div class="special-title">PÁGINA INICIAL</div><div class="special-grid" id="pag_grid"></div>';
-  PAG_STICKERS.forEach(n => {
-    const key = 'PAG_' + n;
-    const s = document.createElement('div');
-    s.className = 'stk-sp';
-    s.textContent = n;
-    s.dataset.key = key;
-    s.onclick = () => {
-      state[key] = ((state[key]||0) + 1) % 3;
-      updateStkSpEl(s, state[key]);
-      updateGlobal(); updateResumo(); updateEstat(); scheduleSave();
-    };
-    pag.querySelector('#pag_grid').appendChild(s);
+  page.className = 'page'; page.id = 'page_especiais';
+  [['PÁGINA INICIAL','PAG','pag',PAG_STICKERS],['FIFA WORLD CUP HISTORY','FWC','fwc',FWC_STICKERS],['FIGURINHAS COCA-COLA','CC','cc',CC_STICKERS]].forEach(([title, prefix, id, list]) => {
+    const sec = document.createElement('div');
+    sec.className = 'special-section';
+    sec.innerHTML = `<div class="special-title">${title}</div><div class="special-grid" id="${id}_grid"></div>`;
+    list.forEach(n => {
+      const key = prefix + '_' + n;
+      const s = document.createElement('div');
+      s.className = 'stk-sp'; s.textContent = n; s.dataset.key = key;
+      s.onclick = () => { state[key] = ((state[key]||0)+1)%3; updateStkSpEl(s,state[key]); updateAllStats(); scheduleSave(); };
+      sec.querySelector('#'+id+'_grid').appendChild(s);
+    });
+    page.appendChild(sec);
   });
-  page.appendChild(pag);
-
-  // FWC
-  const fwc = document.createElement('div');
-  fwc.className = 'special-section';
-  fwc.innerHTML = '<div class="special-title">FIFA WORLD CUP HISTORY</div><div class="special-grid" id="fwc_grid"></div>';
-  FWC_STICKERS.forEach(n => {
-    const key = 'FWC_' + n;
-    const s = document.createElement('div');
-    s.className = 'stk-sp';
-    s.textContent = n;
-    s.dataset.key = key;
-    s.onclick = () => {
-      state[key] = ((state[key]||0) + 1) % 3;
-      updateStkSpEl(s, state[key]);
-      updateGlobal(); updateResumo(); updateEstat(); scheduleSave();
-    };
-    fwc.querySelector('#fwc_grid').appendChild(s);
-  });
-  page.appendChild(fwc);
-
-  // CC
-  const cc = document.createElement('div');
-  cc.className = 'special-section';
-  cc.innerHTML = '<div class="special-title">FIGURINHAS COCA-COLA</div><div class="special-grid" id="cc_grid"></div>';
-  CC_STICKERS.forEach(n => {
-    const key = 'CC_' + n;
-    const s = document.createElement('div');
-    s.className = 'stk-sp';
-    s.textContent = n;
-    s.dataset.key = key;
-    s.onclick = () => {
-      state[key] = ((state[key]||0) + 1) % 3;
-      updateStkSpEl(s, state[key]);
-      updateGlobal(); updateResumo(); updateEstat(); scheduleSave();
-    };
-    cc.querySelector('#cc_grid').appendChild(s);
-  });
-  page.appendChild(cc);
-
-  page.insertAdjacentHTML('beforeend', `
-    <div class="legend">
-      <div class="legend-item"><div class="leg-dot" style="background:var(--surface);border:1.5px solid var(--border2)"></div>Falta</div>
-      <div class="legend-item"><div class="leg-dot" style="background:var(--green)"></div>Tenho</div>
-      <div class="legend-item"><div class="leg-dot" style="background:var(--gold)"></div>Repetida</div>
-    </div>
-    <div class="tap-tip">Toque 1× = tenho &nbsp;·&nbsp; 2× = repetida &nbsp;·&nbsp; 3× = falta</div>
-  `);
-  return page;
-}
-
-function buildEstatPage() {
-  const page = document.createElement('div');
-  page.className = 'page';
-  page.id = 'page_estat';
-  page.style.padding = '12px';
-  page.innerHTML = `
-    <div class="estat-hero">
-      <div class="estat-hero-left">
-        <div class="estat-hero-label">Para completar o álbum</div>
-        <div class="estat-hero-valor" id="e_falta_valor">R$ 0</div>
-        <div class="estat-hero-sub" id="e_falta_sub">— figurinhas faltando</div>
-      </div>
-      <div class="estat-hero-icon">🏆</div>
-    </div>
-
-    <div class="estat-grid">
-      <div class="estat-tile">
-        <div class="estat-tile-n green" id="e_have">0</div>
-        <div class="estat-tile-lbl">Tenho</div>
-      </div>
-      <div class="estat-tile">
-        <div class="estat-tile-n red" id="e_miss">0</div>
-        <div class="estat-tile-lbl">Faltam</div>
-      </div>
-      <div class="estat-tile">
-        <div class="estat-tile-n gold" id="e_rep">0</div>
-        <div class="estat-tile-lbl">Repetidas</div>
-      </div>
-      <div class="estat-tile">
-        <div class="estat-tile-n blue" id="e_pct">0%</div>
-        <div class="estat-tile-lbl">Completo</div>
-      </div>
-    </div>
-
-    <div class="estat-section-title">💰 Investimento</div>
-
-    <div class="estat-card">
-      <div class="estat-card-row">
-        <div class="estat-card-icon">✅</div>
-        <div class="estat-card-body">
-          <div class="estat-card-title">Já investido</div>
-          <div class="estat-card-sub" id="e_inv_sub">0 figurinhas × R$ 1,00</div>
-        </div>
-        <div class="estat-card-value green" id="e_inv_valor">R$ 0</div>
-      </div>
-      <div class="estat-divider"></div>
-      <div class="estat-card-row">
-        <div class="estat-card-icon">🎯</div>
-        <div class="estat-card-body">
-          <div class="estat-card-title">Para completar</div>
-          <div class="estat-card-sub" id="e_comp_sub">0 figurinhas restantes</div>
-        </div>
-        <div class="estat-card-value red" id="e_comp_valor">R$ 0</div>
-      </div>
-      <div class="estat-divider"></div>
-      <div class="estat-card-row">
-        <div class="estat-card-icon">📦</div>
-        <div class="estat-card-body">
-          <div class="estat-card-title">Pacotes estimados</div>
-          <div class="estat-card-sub">7 fig/pacote · R$ 7,00 cada</div>
-        </div>
-        <div class="estat-card-value gold" id="e_pacotes">0 pcts</div>
-      </div>
-    </div>
-
-    <div class="estat-section-title">📊 Por seção</div>
-    <div id="e_secoes"></div>
-
-    <div class="estat-aviso">* Coca-Cola excluída do cálculo de custo.<br>Cada figurinha = R$ 1,00 (pacote 7 fig · R$ 7,00).</div>
-  `;
+  page.insertAdjacentHTML('beforeend', `<div class="legend"><div class="legend-item"><div class="leg-dot" style="background:var(--surface);border:1.5px solid var(--border2)"></div>Falta</div><div class="legend-item"><div class="leg-dot" style="background:var(--green)"></div>Tenho</div><div class="legend-item"><div class="leg-dot" style="background:var(--gold)"></div>Repetida</div></div><div class="tap-tip">Toque 1× = tenho &nbsp;·&nbsp; 2× = repetida &nbsp;·&nbsp; 3× = falta</div>`);
   return page;
 }
 
 function buildResumoPage() {
   const page = document.createElement('div');
-  page.className = 'page';
-  page.id = 'page_resumo';
-  page.innerHTML = `
-    <div class="stats-grid">
-      <div class="stat-tile"><div class="stat-n" id="r_have">0</div><div class="stat-lbl">Tenho</div></div>
-      <div class="stat-tile"><div class="stat-n" id="r_miss">0</div><div class="stat-lbl">Faltam</div></div>
-      <div class="stat-tile"><div class="stat-n" id="r_rep">0</div><div class="stat-lbl">Repetidas</div></div>
-      <div class="stat-tile"><div class="stat-n" id="r_pct">0%</div><div class="stat-lbl">Completo</div></div>
-    </div>
-    <div class="team-list" id="teamList"></div>
-  `;
+  page.className = 'page'; page.id = 'page_resumo';
+  page.innerHTML = `<div class="stats-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px"><div class="stat-tile" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 12px;text-align:center"><div class="stat-n" style="font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:800;color:var(--gold-light)" id="r_have">0</div><div class="stat-lbl" style="font-size:11px;color:var(--muted);margin-top:3px;font-weight:500;text-transform:uppercase;letter-spacing:.5px">Tenho</div></div><div class="stat-tile" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 12px;text-align:center"><div class="stat-n" style="font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:800;color:var(--gold-light)" id="r_miss">0</div><div class="stat-lbl" style="font-size:11px;color:var(--muted);margin-top:3px;font-weight:500;text-transform:uppercase;letter-spacing:.5px">Faltam</div></div><div class="stat-tile" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 12px;text-align:center"><div class="stat-n" style="font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:800;color:var(--gold-light)" id="r_rep">0</div><div class="stat-lbl" style="font-size:11px;color:var(--muted);margin-top:3px;font-weight:500;text-transform:uppercase;letter-spacing:.5px">Repetidas</div></div><div class="stat-tile" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 12px;text-align:center"><div class="stat-n" style="font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:800;color:var(--gold-light)" id="r_pct">0%</div><div class="stat-lbl" style="font-size:11px;color:var(--muted);margin-top:3px;font-weight:500;text-transform:uppercase;letter-spacing:.5px">Completo</div></div></div><div class="team-list" id="teamList"></div>`;
   return page;
 }
 
 // ─── STATE → UI ───
-function updateStkEl(el, val) {
-  el.classList.toggle('have', val===1);
-  el.classList.toggle('repeat', val===2);
-}
-
-function updateStkSpEl(el, val) {
-  el.classList.toggle('have', val===1);
-  el.classList.toggle('repeat', val===2);
-}
+function updateStkEl(el, val) { el.classList.toggle('have', val===1); el.classList.toggle('repeat', val===2); }
+function updateStkSpEl(el, val) { el.classList.toggle('have', val===1); el.classList.toggle('repeat', val===2); }
 
 function updateTeamProg(code) {
-  const el = document.getElementById('tp_'+code);
-  if(!el) return;
-  const count = TEAM_STICKERS.filter(n => (state[code+'_'+n]||0) >= 1).length;
-  el.textContent = count + '/20';
+  const el = document.getElementById('tp_'+code); if(!el) return;
+  el.textContent = TEAM_STICKERS.filter(n=>(state[code+'_'+n]||0)>=1).length + '/20';
 }
-
 function updateGroupCount(g) {
-  const el = document.getElementById('gcount_'+g);
-  if(!el) return;
-  let c = 0;
-  GROUPS[g].forEach(t => TEAM_STICKERS.forEach(n => { if((state[t.code+'_'+n]||0)>=1) c++; }));
-  el.textContent = c + '/' + (GROUPS[g].length * 20);
+  const el = document.getElementById('gcount_'+g); if(!el) return;
+  let c=0; GROUPS[g].forEach(t=>TEAM_STICKERS.forEach(n=>{if((state[t.code+'_'+n]||0)>=1)c++;}));
+  el.textContent = c+'/'+(GROUPS[g].length*20);
 }
 
-function updateGlobal() {
-  let have = 0, total = 0;
-  Object.values(GROUPS).flat().forEach(t => {
-    TEAM_STICKERS.forEach(n => { if((state[t.code+'_'+n]||0)>=1) have++; total++; });
-  });
-  FWC_STICKERS.forEach(n => { if((state['FWC_'+n]||0)>=1) have++; total++; });
-  PAG_STICKERS.forEach(n => { if((state['PAG_'+n]||0)>=1) have++; total++; });
-  CC_STICKERS.forEach(n => { if((state['CC_'+n]||0)>=1) have++; total++; });
-  const pct = total > 0 ? Math.round(have/total*100) : 0;
-  document.getElementById('globalBar').style.width = pct + '%';
-  document.getElementById('globalCount').textContent = have + ' figurinhas';
-  document.getElementById('globalPct').textContent = pct + '%';
-}
-
-function updateResumo() {
-  let have = 0, rep = 0, total = 0;
+function calcStats() {
   const teams = Object.values(GROUPS).flat();
-  const tl = document.getElementById('teamList');
-  if(tl) tl.innerHTML = '';
-
-  teams.forEach(t => {
-    let th = 0;
-    TEAM_STICKERS.forEach(n => {
-      const v = state[t.code+'_'+n]||0;
-      if(v>=1) { have++; th++; }
-      if(v===2) rep++;
-      total++;
-    });
-    if(tl) {
-      const row = document.createElement('div');
-      row.className = 'team-list-row';
-      row.innerHTML = `<span style="font-size:16px">${t.flag}</span><span style="flex:1;font-size:11px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">${t.code}</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${Math.round(th/20*100)}%"></div></div><span style="font-size:12px;color:var(--gold-light);font-weight:600;font-family:'Barlow Condensed',sans-serif;min-width:30px;text-align:right">${th}/20</span>`;
-      tl.appendChild(row);
-    }
-  });
-  FWC_STICKERS.forEach(n => { const v=state['FWC_'+n]||0; if(v>=1){have++;} if(v===2) rep++; total++; });
-  PAG_STICKERS.forEach(n => { const v=state['PAG_'+n]||0; if(v>=1){have++;} if(v===2) rep++; total++; });
-  CC_STICKERS.forEach(n => { const v=state['CC_'+n]||0; if(v>=1){have++;} if(v===2) rep++; total++; });
-
-  const miss = total - have;
-  const pct = total > 0 ? Math.round(have/total*100) : 0;
-  const rh = document.getElementById('r_have');
-  const rm = document.getElementById('r_miss');
-  const rr = document.getElementById('r_rep');
-  const rp = document.getElementById('r_pct');
-  if(rh) rh.textContent = have;
-  if(rm) rm.textContent = miss;
-  if(rr) rr.textContent = rep;
-  if(rp) rp.textContent = pct + '%';
-}
-
-function updateEstat() {
-  // Totals (excluding CC from cost)
-  const teams = Object.values(GROUPS).flat();
-  let have = 0, rep = 0, miss = 0;
-  let haveCC = 0, repCC = 0;
-
-  teams.forEach(t => {
-    TEAM_STICKERS.forEach(n => {
-      const v = state[t.code+'_'+n]||0;
-      if(v>=1) have++; if(v===2) rep++;
-    });
-  });
-  FWC_STICKERS.forEach(n => { const v=state['FWC_'+n]||0; if(v>=1) have++; if(v===2) rep++; });
-  PAG_STICKERS.forEach(n => { const v=state['PAG_'+n]||0; if(v>=1) have++; if(v===2) rep++; });
-  CC_STICKERS.forEach(n => { const v=state['CC_'+n]||0; if(v>=1) haveCC++; if(v===2) repCC++; });
-
-  const totalSemCC = (teams.length * 20) + FWC_STICKERS.length + PAG_STICKERS.length;
+  let have=0, rep=0, haveCC=0, repCC=0;
+  teams.forEach(t=>TEAM_STICKERS.forEach(n=>{const v=state[t.code+'_'+n]||0;if(v>=1)have++;if(v===2)rep++;}));
+  FWC_STICKERS.forEach(n=>{const v=state['FWC_'+n]||0;if(v>=1)have++;if(v===2)rep++;});
+  PAG_STICKERS.forEach(n=>{const v=state['PAG_'+n]||0;if(v>=1)have++;if(v===2)rep++;});
+  CC_STICKERS.forEach(n=>{const v=state['CC_'+n]||0;if(v>=1)haveCC++;if(v===2)repCC++;});
+  const totalSemCC = teams.length*20 + FWC_STICKERS.length + PAG_STICKERS.length;
   const totalComCC = totalSemCC + CC_STICKERS.length;
-  const haveAll = have + haveCC;
-  miss = totalSemCC - have;
-  const pct = totalComCC > 0 ? Math.round(haveAll/totalComCC*100) : 0;
+  const haveAll = have + haveCC; const repAll = rep + repCC;
+  const miss = totalSemCC - have;
+  const pct = Math.round(haveAll/totalComCC*100);
+  return { have, haveCC, haveAll, rep, repCC, repAll, miss, totalSemCC, totalComCC, pct, teams };
+}
 
-  const pacotesParaCompletar = Math.ceil(miss / 7);
-  const custoFalta = miss; // R$1 por figurinha
-  const custoJa = have;   // R$1 por figurinha (sem CC)
-
-  const fv = document.getElementById('e_falta_valor');
-  const fs = document.getElementById('e_falta_sub');
-  const eh = document.getElementById('e_have');
-  const em = document.getElementById('e_miss');
-  const er = document.getElementById('e_rep');
-  const ep = document.getElementById('e_pct');
-  const iv = document.getElementById('e_inv_valor');
-  const is_ = document.getElementById('e_inv_sub');
-  const cv = document.getElementById('e_comp_valor');
-  const cs = document.getElementById('e_comp_sub');
-  const pv = document.getElementById('e_pacotes');
-  const sec = document.getElementById('e_secoes');
-
-  if(fv) fv.textContent = 'R$ ' + custoFalta.toLocaleString('pt-BR');
-  if(fs) fs.textContent = miss + ' figurinhas faltando';
-  if(eh) eh.textContent = haveAll;
-  if(em) em.textContent = miss;
-  if(er) er.textContent = rep + repCC;
-  if(ep) ep.textContent = pct + '%';
-  if(iv) iv.textContent = 'R$ ' + custoJa.toLocaleString('pt-BR');
-  if(is_) is_.textContent = have + ' figurinhas × R$ 1,00';
-  if(cv) cv.textContent = 'R$ ' + custoFalta.toLocaleString('pt-BR');
-  if(cs) cs.textContent = miss + ' figurinhas restantes (sem Coca-Cola)';
-  if(pv) pv.textContent = pacotesParaCompletar + ' pcts';
-
-  if(sec) {
-    const SECOES = [
-      { nome: 'Grupos (A-L)', getHave: () => { let h=0; teams.forEach(t => TEAM_STICKERS.forEach(n => { if((state[t.code+'_'+n]||0)>=1) h++; })); return h; }, total: teams.length*20 },
-      { nome: 'Pág. Inicial', getHave: () => PAG_STICKERS.filter(n=>(state['PAG_'+n]||0)>=1).length, total: PAG_STICKERS.length },
-      { nome: 'FWC History', getHave: () => FWC_STICKERS.filter(n=>(state['FWC_'+n]||0)>=1).length, total: FWC_STICKERS.length },
-      { nome: 'Coca-Cola ☕', getHave: () => haveCC, total: CC_STICKERS.length },
+function updateAllStats() {
+  const s = calcStats();
+  // Global header bar
+  document.getElementById('globalBar').style.width = s.pct+'%';
+  document.getElementById('globalCount').textContent = s.haveAll+' figurinhas';
+  document.getElementById('globalPct').textContent = s.pct+'%';
+  // Início
+  document.getElementById('i_pct').textContent = s.pct+'%';
+  document.getElementById('i_bar').style.width = s.pct+'%';
+  document.getElementById('i_have_lbl').textContent = s.haveAll+' figurinhas';
+  document.getElementById('i_miss_lbl').textContent = s.miss+' faltando';
+  document.getElementById('i_have').textContent = s.haveAll;
+  document.getElementById('i_miss').textContent = s.miss;
+  document.getElementById('i_rep').textContent = s.repAll;
+  document.getElementById('i_custo').textContent = 'R$'+s.miss;
+  // Resumo
+  const rh=document.getElementById('r_have'),rm=document.getElementById('r_miss'),rr=document.getElementById('r_rep'),rp=document.getElementById('r_pct');
+  if(rh) rh.textContent=s.haveAll; if(rm) rm.textContent=s.miss; if(rr) rr.textContent=s.repAll; if(rp) rp.textContent=s.pct+'%';
+  // Team list (resumo + inicio)
+  const tl=document.getElementById('teamList'); const itl=document.getElementById('i_teamList');
+  if(tl) tl.innerHTML=''; if(itl) itl.innerHTML='';
+  s.teams.forEach(t=>{
+    let th=0; TEAM_STICKERS.forEach(n=>{if((state[t.code+'_'+n]||0)>=1)th++;});
+    const rowHTML = `<span style="font-size:16px">${t.flag}</span><span style="flex:1;font-size:11px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">${t.code}</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${Math.round(th/20*100)}%"></div></div><span style="font-size:12px;color:var(--gold-light);font-weight:600;font-family:'Barlow Condensed',sans-serif;min-width:30px;text-align:right">${th}/20</span>`;
+    if(tl){const r=document.createElement('div');r.className='team-list-row';r.innerHTML=rowHTML;tl.appendChild(r);}
+    if(itl){const r=document.createElement('div');r.className='team-list-row';r.innerHTML=rowHTML;itl.appendChild(r);}
+  });
+  // Estatísticas
+  const pacotes = Math.ceil(s.miss/7);
+  const fv=document.getElementById('e_falta_valor'),fs=document.getElementById('e_falta_sub');
+  if(fv) fv.textContent='R$ '+s.miss.toLocaleString('pt-BR');
+  if(fs) fs.textContent=s.miss+' figurinhas faltando';
+  const eh=document.getElementById('e_have'),em=document.getElementById('e_miss'),er=document.getElementById('e_rep'),ep=document.getElementById('e_pct');
+  if(eh) eh.textContent=s.haveAll; if(em) em.textContent=s.miss; if(er) er.textContent=s.repAll; if(ep) ep.textContent=s.pct+'%';
+  const iv=document.getElementById('e_inv_valor'),is_=document.getElementById('e_inv_sub');
+  const cv=document.getElementById('e_comp_valor'),cs=document.getElementById('e_comp_sub'),pv=document.getElementById('e_pacotes');
+  if(iv) iv.textContent='R$ '+s.have.toLocaleString('pt-BR');
+  if(is_) is_.textContent=s.have+' figurinhas × R$ 1,00';
+  if(cv) cv.textContent='R$ '+s.miss.toLocaleString('pt-BR');
+  if(cs) cs.textContent=s.miss+' figurinhas restantes (sem Coca-Cola)';
+  if(pv) pv.textContent=pacotes+' pcts';
+  const sec=document.getElementById('e_secoes');
+  if(sec){
+    const SECOES=[
+      {nome:'Grupos (A-L)',getH:()=>{let h=0;s.teams.forEach(t=>TEAM_STICKERS.forEach(n=>{if((state[t.code+'_'+n]||0)>=1)h++;}));return h;},total:s.teams.length*20},
+      {nome:'Pág. Inicial',getH:()=>PAG_STICKERS.filter(n=>(state['PAG_'+n]||0)>=1).length,total:PAG_STICKERS.length},
+      {nome:'FWC History',getH:()=>FWC_STICKERS.filter(n=>(state['FWC_'+n]||0)>=1).length,total:FWC_STICKERS.length},
+      {nome:'Coca-Cola ☕',getH:()=>s.haveCC,total:CC_STICKERS.length},
     ];
-    sec.innerHTML = '';
-    SECOES.forEach(s => {
-      const h = s.getHave();
-      const m = s.total - h;
-      const p = Math.round(h/s.total*100);
-      const div = document.createElement('div');
-      div.className = 'estat-card';
-      div.style.marginBottom = '8px';
-      div.innerHTML = `
-        <div class="estat-card-row" style="margin-bottom:7px">
-          <div class="estat-card-body">
-            <div class="estat-card-title">${s.nome}</div>
-            <div class="estat-card-sub">${h}/${s.total} · faltam ${m}</div>
-          </div>
-          <div class="estat-card-value gold">${p}%</div>
-        </div>
-        <div class="mini-bar-bg" style="height:5px">
-          <div class="mini-bar-fill" style="width:${p}%"></div>
-        </div>
-      `;
+    sec.innerHTML='';
+    SECOES.forEach(sx=>{
+      const h=sx.getH(),m=sx.total-h,p=Math.round(h/sx.total*100);
+      const div=document.createElement('div');div.className='estat-card';div.style.marginBottom='8px';
+      div.innerHTML=`<div class="estat-card-row" style="margin-bottom:7px"><div class="estat-card-body"><div class="estat-card-title">${sx.nome}</div><div class="estat-card-sub">${h}/${sx.total} · faltam ${m}</div></div><div class="estat-card-value gold">${p}%</div></div><div class="mini-bar-bg" style="height:5px"><div class="mini-bar-fill" style="width:${p}%"></div></div>`;
       sec.appendChild(div);
+    });
+  }
+  // Perfil - minhas repetidas
+  updatePerfilStats();
+  // Atualiza amigos (repetidas que eles têm que eu preciso)
+  if(amigos.length > 0) renderAmigos();
+}
+
+function updatePerfilStats() {
+  const s = calcStats();
+  document.getElementById('p_have').textContent = s.haveAll;
+  document.getElementById('p_rep').textContent = s.repAll;
+  // Minhas repetidas
+  const reps = ALL_STICKERS.filter(st => (state[st.key]||0) === 2);
+  const el = document.getElementById('minhasRepContent');
+  if(!el) return;
+  if(reps.length === 0) {
+    el.innerHTML = '<div class="minhas-rep-empty">Nenhuma figurinha repetida ainda</div>';
+  } else {
+    el.innerHTML = `<div style="font-size:11px;color:var(--muted);margin-bottom:8px">${reps.length} figurinha(s) repetida(s) — compartilhe com seus amigos!</div><div class="rep-list" id="repListEl"></div>`;
+    const rl = document.getElementById('repListEl');
+    reps.forEach(st => {
+      const span = document.createElement('span');
+      span.className = 'rep-item';
+      span.title = st.section;
+      span.textContent = st.team + ' ' + st.label;
+      rl.appendChild(span);
     });
   }
 }
 
+// ─── BUSCA ───
+window.setFilter = (f, btn) => {
+  searchFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  doSearch();
+};
+window.doSearch = () => {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const results = document.getElementById('searchResults');
+  if(!q && searchFilter === 'todos') {
+    results.innerHTML = '<div class="search-empty"><div class="search-empty-icon">🔍</div><div>Digite para buscar qualquer figurinha</div></div>';
+    return;
+  }
+  let filtered = ALL_STICKERS.filter(s => {
+    const val = state[s.key]||0;
+    const matchFilter = searchFilter==='todos' || (searchFilter==='tenho'&&val===1) || (searchFilter==='repetida'&&val===2) || (searchFilter==='falta'&&val===0);
+    if(!matchFilter) return false;
+    if(!q) return true;
+    return s.key.toLowerCase().includes(q) || s.label.toLowerCase().includes(q) || s.team.toLowerCase().includes(q) || s.name.toLowerCase().includes(q) || s.section.toLowerCase().includes(q);
+  });
+  if(filtered.length === 0) {
+    results.innerHTML = '<div class="search-empty"><div class="search-empty-icon">😕</div><div>Nenhuma figurinha encontrada</div></div>';
+    return;
+  }
+  results.innerHTML = '';
+  filtered.slice(0, 80).forEach(s => {
+    const val = state[s.key]||0;
+    const statusClass = val===1?'have':val===2?'repeat':'miss';
+    const statusLabel = val===1?'Tenho':val===2?'Repetida':'Falta';
+    const div = document.createElement('div');
+    div.className = 'search-result-item '+statusClass;
+    div.innerHTML = `<span class="sri-num">${s.flag}</span><div class="sri-info"><div class="sri-name">${s.team} · ${s.label}</div><div class="sri-section">${s.section}</div></div><span class="sri-badge ${statusClass}">${statusLabel}</span>`;
+    div.onclick = () => {
+      state[s.key] = ((state[s.key]||0)+1)%3;
+      const newVal = state[s.key];
+      div.className = 'search-result-item '+(newVal===1?'have':newVal===2?'repeat':'miss');
+      div.querySelector('.sri-badge').className = 'sri-badge '+(newVal===1?'have':newVal===2?'repeat':'miss');
+      div.querySelector('.sri-badge').textContent = newVal===1?'Tenho':newVal===2?'Repetida':'Falta';
+      // sync sticker element if visible
+      const stkEl = document.querySelector('[data-key="'+s.key+'"]');
+      if(stkEl) { if(stkEl.classList.contains('stk')) updateStkEl(stkEl,newVal); else updateStkSpEl(stkEl,newVal); }
+      updateTeamProg(s.team);
+      Object.keys(GROUPS).forEach(g => { if(GROUPS[g].find(t=>t.code===s.team)) updateGroupCount(g); });
+      updateAllStats();
+      scheduleSave();
+      if(searchFilter !== 'todos') setTimeout(doSearch, 300);
+    };
+    results.appendChild(div);
+  });
+  if(filtered.length > 80) {
+    results.insertAdjacentHTML('beforeend', `<div style="text-align:center;font-size:11px;color:var(--muted);padding:8px">Mostrando 80 de ${filtered.length} resultados. Refine a busca.</div>`);
+  }
+}
+
+// ─── REFRESH ALL ───
 function refreshAllUI() {
-  // Apply state to all sticker elements
-  document.querySelectorAll('.stk[data-key]').forEach(el => {
-    updateStkEl(el, state[el.dataset.key]||0);
-  });
-  document.querySelectorAll('.stk-sp[data-key]').forEach(el => {
-    updateStkSpEl(el, state[el.dataset.key]||0);
-  });
+  document.querySelectorAll('.stk[data-key]').forEach(el => updateStkEl(el, state[el.dataset.key]||0));
+  document.querySelectorAll('.stk-sp[data-key]').forEach(el => updateStkSpEl(el, state[el.dataset.key]||0));
   Object.values(GROUPS).flat().forEach(t => updateTeamProg(t.code));
   Object.keys(GROUPS).forEach(g => updateGroupCount(g));
-  updateGlobal();
-  updateResumo();
-  updateEstat();
+  updateAllStats();
+  doSearch();
 }
 
 // ─── AUTH STATE ───
@@ -1321,23 +1070,28 @@ onAuthStateChanged(auth, async user => {
   const loading = document.getElementById('loadingScreen');
   const authScr = document.getElementById('authScreen');
   const appEl = document.getElementById('app');
-
   if(user) {
     currentUser = user;
     document.getElementById('userLabel').textContent = user.displayName || user.email?.split('@')[0] || 'Usuário';
+    // Perfil
+    const name = user.displayName || user.email?.split('@')[0] || 'Usuário';
+    const initials = name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+    document.getElementById('p_avatar').textContent = initials;
+    document.getElementById('p_name').textContent = name;
+    document.getElementById('p_email').textContent = user.email || '';
     buildApp();
     await loadUserData(user.uid);
+    await loadAmigos();
     authScr.style.display = 'none';
     appEl.classList.add('visible');
   } else {
     currentUser = null;
-    if(unsubSnapshot) { unsubSnapshot(); unsubSnapshot = null; }
+    if(unsubSnapshot){unsubSnapshot();unsubSnapshot=null;}
     appEl.classList.remove('visible');
     authScr.style.display = 'flex';
   }
-
   loading.classList.add('hide');
-  setTimeout(() => loading.style.display = 'none', 500);
+  setTimeout(()=>loading.style.display='none', 500);
 });
 </script>
 </body>
